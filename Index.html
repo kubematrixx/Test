@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Curated Directory</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --card-bg: #161922;
+      --card-hover: #1e2230;
+      --border: #262b3d;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #8b5cf6;
+      --badge-trusted: #10b981;
+      --badge-new: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 4rem;
+    }
+
+    /* Header & Hero */
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+    h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); margin-top: 0.5rem; font-size: 1rem; }
+
+    /* Stats Bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .stats strong { color: var(--text); font-size: 1.1rem; }
+
+    /* Search & Filter Controls */
+    .controls {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .shortcut-hint {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--border);
+      color: var(--muted);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+
+    /* Category Pills */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .cat-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Main Content & Cards */
+    main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .category-section { margin-bottom: 2.5rem; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .section-count {
+      font-size: 0.85rem;
+      color: var(--muted);
+      background: var(--card-bg);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.85rem;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+    .card-title { font-weight: 600; font-size: 1rem; }
+    .card-domain { color: var(--muted); font-size: 0.8rem; }
+
+    .badge {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .badge.trusted { background: rgba(16, 185, 129, 0.15); color: var(--badge-trusted); }
+    .badge.new { background: rgba(59, 130, 246, 0.15); color: var(--badge-new); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Resource Hub</h1>
+    <p class="subtitle">Curated links, instant search, and organized categories.</p>
+    <div class="stats">
+      <div><strong id="total-sites">0</strong> Sites</div>
+      <div><strong id="total-categories">0</strong> Categories</div>
+    </div>
+  </header>
+
+  <section class="controls">
+    <div class="search-wrapper">
+      <input type="text" id="search" class="search-input" placeholder="Search sites by name or domain..." />
+      <span class="shortcut-hint">⌘K / Ctrl+K</span>
+    </div>
+    <div class="categories" id="category-buttons"></div>
+  </section>
+
+  <main id="directory-container"></main>
+
+  <script>
+    // 1. EDIT YOUR LINKS HERE
+    const sitesData = [
+      { name: "MDN Web Docs", domain: "developer.mozilla.org", url: "https://developer.mozilla.org", category: "Development", badge: "trusted" },
+      { name: "GitHub", domain: "github.com", url: "https://github.com", category: "Development", badge: "trusted" },
+      { name: "Stack Overflow", domain: "stackoverflow.com", url: "https://stackoverflow.com", category: "Development", badge: "" },
+      { name: "Figma", domain: "figma.com", url: "https://figma.com", category: "Design", badge: "trusted" },
+      { name: "Coolors", domain: "coolors.co", url: "https://coolors.co", category: "Design", badge: "new" },
+      { name: "Unsplash", domain: "unsplash.com", url: "https://unsplash.com", category: "Design", badge: "" },
+      { name: "Notion", domain: "notion.so", url: "https://notion.so", category: "Productivity", badge: "trusted" },
+      { name: "Excalidraw", domain: "excalidraw.com", url: "https://excalidraw.com", category: "Productivity", badge: "new" }
+    ];
+
+    let activeCategory = "All";
+    const searchInput = document.getElementById("search");
+    const container = document.getElementById("directory-container");
+    const catButtonsContainer = document.getElementById("category-buttons");
+
+    // Extract unique categories
+    const categories = ["All", ...new Set(sitesData.map(item => item.category))];
+
+    // Update top counters
+    document.getElementById("total-sites").textContent = sitesData.length;
+    document.getElementById("total-categories").textContent = categories.length - 1;
+
+    // Render category filter pills
+    function renderCategories() {
+      catButtonsContainer.innerHTML = categories.map(cat => `
+        <button class="cat-btn ${cat === activeCategory ? 'active' : ''}" onclick="setCategory('${cat}')">
+          ${cat}
+        </button>
+      `).join("");
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      renderCategories();
+      renderDirectory();
+    }
+
+    // Render filtered directory cards
+    function renderDirectory() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = sitesData.filter(site => {
+        const matchesCat = activeCategory === "All" || site.category === activeCategory;
+        const matchesQuery = site.name.toLowerCase().includes(query) || site.domain.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      const grouped = {};
+      filtered.forEach(site => {
+        if (!grouped[site.category]) grouped[site.category] = [];
+        grouped[site.category].push(site);
+      });
+
+      container.innerHTML = Object.keys(grouped).map(cat => `
+        <div class="category-section">
+          <div class="section-header">
+            <h2>${cat}</h2>
+            <span class="section-count">${grouped[cat].length}</span>
+          </div>
+          <div class="grid">
+            ${grouped[cat].map(site => `
+              <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="card">
+                <div class="card-top">
+                  <span class="card-title">${site.name}</span>${site.badge ? `<span class="badge ${site.badge}">${site.badge}</span>` : ''}
+                </div>
+                <span class="card-domain">${site.domain}</span>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // Keyboard shortcut (Cmd+K / Ctrl+K)
+    window.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    searchInput.addEventListener("input", renderDirectory);
+
+    // Initial load
+    renderCategories();
+    renderDirectory();
+  </script>
+</body>
+</html>
