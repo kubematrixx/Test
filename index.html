@@ -3,172 +3,378 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Streaming Directory</title>
+  <title>Nexus // Streaming Directory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
-    :root {
-      --bg-base: #060812;
-      --card-bg: rgba(16, 22, 38, 0.75);
-      --card-hover: rgba(26, 34, 58, 0.9);
-      --border: rgba(255, 255, 255, 0.08);
-      --accent-1: #818cf8;
-      --accent-2: #38bdf8;
-      --glow: rgba(56, 189, 248, 0.25);
-      --pill-bg: rgba(56, 189, 248, 0.12);
-      --pill-border: rgba(56, 189, 248, 0.3);
+    /* 1. Purple Theme (Default) */
+    :root,
+    body[data-theme="purple"] {
+      --bg-base: #070412;
+      --bg-aura-1: rgba(168, 85, 247, 0.24);
+      --bg-aura-2: rgba(217, 70, 239, 0.16);
+      --bg-aura-3: rgba(129, 140, 248, 0.14);
+      --card-bg: rgba(18, 12, 38, 0.58);
+      --card-inner: rgba(14, 10, 30, 0.75);
+      --card-hover: rgba(30, 20, 62, 0.9);
+      --border: rgba(168, 85, 247, 0.2);
+      --border-glow: rgba(168, 85, 247, 0.55);
+      --accent-1: #c084fc;
+      --accent-2: #a855f7;
+      --accent-3: #e879f9;
+      --glow: rgba(168, 85, 247, 0.34);
+      --pill-bg: rgba(168, 85, 247, 0.15);
+      --pill-border: rgba(168, 85, 247, 0.38);
       --text: #f8fafc;
+      --muted: #a1a1aa;
+    }
+
+    /* 2. Green Theme (Emerald & Neon Mint) */
+    body[data-theme="green"] {
+      --bg-base: #030b07;
+      --bg-aura-1: rgba(16, 185, 129, 0.22);
+      --bg-aura-2: rgba(52, 211, 153, 0.16);
+      --bg-aura-3: rgba(163, 230, 53, 0.12);
+      --card-bg: rgba(6, 24, 16, 0.58);
+      --card-inner: rgba(5, 19, 13, 0.76);
+      --card-hover: rgba(10, 38, 26, 0.9);
+      --border: rgba(16, 185, 129, 0.2);
+      --border-glow: rgba(52, 211, 153, 0.55);
+      --accent-1: #34d399;
+      --accent-2: #10b981;
+      --accent-3: #a3e635;
+      --glow: rgba(16, 185, 129, 0.32);
+      --pill-bg: rgba(16, 185, 129, 0.15);
+      --pill-border: rgba(52, 211, 153, 0.38);
+      --muted: #9ca3af;
+    }
+
+    /* 3. Red Theme (Crimson Ruby) */
+    body[data-theme="red"] {
+      --bg-base: #0c0305;
+      --bg-aura-1: rgba(244, 63, 94, 0.24);
+      --bg-aura-2: rgba(225, 29, 72, 0.18);
+      --bg-aura-3: rgba(251, 113, 133, 0.12);
+      --card-bg: rgba(30, 8, 14, 0.58);
+      --card-inner: rgba(24, 6, 11, 0.76);
+      --card-hover: rgba(46, 12, 22, 0.9);
+      --border: rgba(244, 63, 94, 0.22);
+      --border-glow: rgba(244, 63, 94, 0.55);
+      --accent-1: #fb7185;
+      --accent-2: #e11d48;
+      --accent-3: #fda4af;
+      --glow: rgba(244, 63, 94, 0.34);
+      --pill-bg: rgba(244, 63, 94, 0.15);
+      --pill-border: rgba(244, 63, 94, 0.38);
+      --muted: #fda4af;
+    }
+
+    /* 4. Blue Theme (Electric Ocean & Cobalt) */
+    body[data-theme="blue"] {
+      --bg-base: #020712;
+      --bg-aura-1: rgba(56, 189, 248, 0.24);
+      --bg-aura-2: rgba(37, 99, 235, 0.20);
+      --bg-aura-3: rgba(6, 182, 212, 0.15);
+      --card-bg: rgba(8, 18, 38, 0.58);
+      --card-inner: rgba(6, 14, 30, 0.76);
+      --card-hover: rgba(12, 28, 58, 0.9);
+      --border: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.55);
+      --accent-1: #38bdf8;
+      --accent-2: #2563eb;
+      --accent-3: #22d3ee;
+      --glow: rgba(56, 189, 248, 0.32);
+      --pill-bg: rgba(56, 189, 248, 0.15);
+      --pill-border: rgba(56, 189, 248, 0.38);
       --muted: #94a3b8;
+    }
+
+    /* 5. Gold Theme (Solar Amber & Honey Gold) */
+    body[data-theme="gold"] {
+      --bg-base: #0b0702;
+      --bg-aura-1: rgba(245, 158, 11, 0.22);
+      --bg-aura-2: rgba(234, 88, 12, 0.16);
+      --bg-aura-3: rgba(250, 204, 21, 0.12);
+      --card-bg: rgba(28, 18, 6, 0.58);
+      --card-inner: rgba(22, 14, 5, 0.76);
+      --card-hover: rgba(42, 26, 9, 0.9);
+      --border: rgba(251, 191, 36, 0.22);
+      --border-glow: rgba(251, 191, 36, 0.55);
+      --accent-1: #fbbf24;
+      --accent-2: #ea580c;
+      --accent-3: #fde047;
+      --glow: rgba(245, 158, 11, 0.32);
+      --pill-bg: rgba(245, 158, 11, 0.15);
+      --pill-border: rgba(251, 191, 36, 0.38);
+      --muted: #d6d3d1;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-base);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
       min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 10% 10%, rgba(129, 140, 248, 0.15), transparent 45%),
-        radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.12), transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8), transparent 100%);
-      background-attachment: fixed;
-      padding-bottom: 5rem;
+      overflow-x: hidden;
+      padding-bottom: 6rem;
+      transition: background-color 0.5s ease, color 0.3s ease;
     }
 
-    /* Red Adblock & Browser Notice */
+    /* Interactive 3D WebGL Background Canvas */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Dynamic Theme Aura Mesh + Subtle Dot Matrix */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 12% 18%, var(--bg-aura-1), transparent 45%),
+        radial-gradient(circle at 88% 78%, var(--bg-aura-2), transparent 45%),
+        radial-gradient(circle at 50% 42%, var(--bg-aura-3), transparent 55%),
+        radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px;
+      z-index: -1;
+      pointer-events: none;
+      transition: background-image 0.5s ease;
+    }
+
+    /* Adblock Notice */
     .adblock-notice {
       text-align: center;
-      color: #f87171;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin: 1.5rem auto 0.75rem;
-      padding: 0 1rem;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin: 1.1rem auto 0.4rem;
+      padding: 0.45rem 1.15rem;
+      background: var(--card-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 999px;
+      width: fit-content;
+      max-width: 92vw;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px var(--glow);
     }
     .adblock-notice a {
-      color: #fca5a5;
+      color: var(--accent-1);
       text-decoration: underline;
-      font-weight: 700;
+      text-underline-offset: 3px;
+      font-weight: 800;
+      transition: color 0.2s ease;
     }
     .adblock-notice a:hover {
-      color: #ffffff;
+      color: var(--accent-3);
     }
 
-    /* Sticky Header Container (Transparent) */
+    /* Top Utility Bar */
+    .top-utility-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    /* Brand Identity */
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .utility-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .country-tip-container {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.42rem 0.95rem;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .country-tip-container:hover {
+      border-color: var(--pill-border);
+      box-shadow: 0 8px 25px var(--glow);
+    }
+
+    .country-tip-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .country-select {
+      background: transparent;
+      border: none;
+      color: var(--accent-1);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+    .country-select option {
+      background: #0c101c;
+      color: var(--text);
+    }
+
+    /* Floating Transparent Header Container for Categories */
     .sticky-header {
       position: sticky;
-      top: 0;
+      top: 0.6rem;
       z-index: 999;
       background: transparent !important;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       border-bottom: none;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
       margin-bottom: 2rem;
+      pointer-events: none;
     }
 
     .header-inner {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      justify-content: center;
+      pointer-events: auto;
     }
 
-    /* Country Dropdown (Top Right) */
-    .country-select {
-      background: rgba(16, 22, 38, 0.9);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.4rem 1rem;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 600;
-      outline: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      transition: all 0.2s;
-    }
-    .country-select:hover, .country-select:focus {
-      border-color: var(--accent-2);
-      box-shadow: 0 0 15px var(--glow);
-    }
-    .country-select option {
-      background: #0f172a;
-      color: var(--text);
-    }
-
-    /* Category Navigation Tabs */
+    /* Floating Glass Category Navigation Tabs */
     .categories-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.55rem;
+      justify-content: center;
+      padding: 0.45rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
     .cat-tab {
-      background: transparent !important;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.5rem 1.1rem;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      padding: 0.52rem 1.18rem;
+      border-radius: 999px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 0.5rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .cat-tab span {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 1px 6px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 2px 8px;
       border-radius: 999px;
       font-size: 0.7rem;
-      font-family: monospace;
-      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      color: #ffffff;
     }
     .cat-tab:hover {
-      border-color: var(--accent-2);
-      color: #fff;
-      background: rgba(255, 255, 255, 0.04) !important;
-      transform: translateY(-1px);
+      border-color: var(--accent-1);
+      color: #ffffff;
+      background: color-mix(in srgb, var(--accent-1) 18%, transparent) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--glow);
     }
     .cat-tab.active {
       background: linear-gradient(135deg, var(--accent-1), var(--accent-2)) !important;
-      border-color: transparent;
-      color: #060812;
-      box-shadow: 0 0 20px var(--glow);
-      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 26px var(--glow);
+      transform: scale(1.04);
     }
     .cat-tab.active span {
-      background: rgba(0, 0, 0, 0.2);
-      color: #060812;
+      background: rgba(255, 255, 255, 0.24);
+      color: #ffffff;
     }
 
     /* Main Container */
     main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
-      perspective: 1200px;
+      padding: 0 1.5rem;
+      perspective: 1400px;
     }
 
     .section-card-wrapper {
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 28px;
       padding: 2.25rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-      margin-bottom: 2rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      margin-bottom: 2.25rem;
       transform-style: preserve-3d;
-      transform: rotateX(12deg) translateY(40px) scale(0.95);
+      transform: rotateX(8deg) translateY(30px) scale(0.97);
       opacity: 0;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, border-color 0.3s ease, background 0.4s ease;
+    }
+    .section-card-wrapper:hover {
+      border-color: var(--pill-border);
     }
     .section-card-wrapper.visible {
       transform: rotateX(0deg) translateY(0) scale(1);
@@ -177,13 +383,30 @@
 
     .banner-overlay {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 180px;
+      top: 0; left: 0; width: 100%; height: 210px;
       background-size: cover;
       background-position: center;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.52;
+      filter: saturate(1.35) contrast(1.08);
+    }
+
+    /* Subtle Category Watermark Graphic */
+    .category-watermark {
+      position: absolute;
+      top: 16px;
+      right: 28px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(255, 255, 255, 0.035);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      line-height: 1;
     }
 
     .section-header {
@@ -192,26 +415,39 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 1rem;
+      padding-bottom: 1.1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    .section-header h2 { font-size: 2rem; font-weight: 900; }
+    .section-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-icon {
+      font-size: 1.5rem;
+      filter: drop-shadow(0 0 12px var(--glow));
+    }
+    .section-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.95rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-1));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .count-pill {
-      font-family: monospace;
-      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
       background: var(--pill-bg);
-      color: var(--accent-2);
+      color: var(--accent-1);
       border: 1px solid var(--pill-border);
-      padding: 4px 12px;
+      padding: 5px 13px;
       border-radius: 999px;
-    }
-    .section-desc {
-      position: relative;
-      z-index: 1;
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      box-shadow: 0 0 15px var(--glow);
     }
 
     /* Links Grid */
@@ -219,170 +455,232 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.35rem;
+      padding-top: 0.5rem;
     }
+
+    /* Centered Link Card with True 3D Parallax Pop & Glare */
     .link-card {
-      background: rgba(10, 15, 28, 0.85);
+      position: relative;
+      background: var(--card-inner);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.15rem;
+      border-radius: 22px;
+      padding: 1.6rem 1.25rem;
       color: var(--text);
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
       justify-content: space-between;
-      transition: all 0.2s ease;
       cursor: pointer;
-    }
-    .link-card:hover {
-      background: var(--card-hover);
-      border-color: var(--accent-2);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px var(--glow);
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    .title-group {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      min-width: 0;
-    }
-    .favicon {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-      flex-shrink: 0;
-    }
-    .site-name {
-      font-weight: 700;
-      font-size: 1rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .site-domain {
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: var(--muted);
-      padding-left: 1.65rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      overflow: visible;
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     }
 
-    /* Live Status Indicator & Action Buttons */
-    .card-footer {
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in srgb, var(--accent-1) 24%, transparent), transparent 80%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      border-radius: 22px;
+      z-index: 1;
+    }
+
+    .link-card:hover::before {
+      opacity: 1;
+    }
+
+    .link-card::after {
+      content: attr(data-url);
+      position: absolute;
+      top: -38px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px) scale(0.92) translateZ(30px);
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      font-weight: 800;
+      padding: 4px 13px;
+      border-radius: 999px;
+      pointer-events: none;
+      box-shadow: 0 8px 25px var(--glow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 50;
+      white-space: nowrap;
+    }
+
+    .link-card:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0) scale(1) translateZ(30px);
+    }
+
+    .link-card:hover {
+      border-color: var(--accent-1);
+      background: var(--card-hover);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55), 0 0 25px var(--glow);
+      z-index: 5;
+    }
+
+    .card-top-row {
+      position: relative;
+      z-index: 2;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 0.8rem;
-      padding-top: 0.55rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      min-height: 26px;
+      margin-bottom: -4px;
+      transform: translateZ(16px);
     }
-    .status-indicator {
-      font-family: monospace;
-      font-size: 0.72rem;
+
+    .card-content-center {
+      position: relative;
+      z-index: 2;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 5px;
-      color: #34d399;
-    }
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #34d399;
-      box-shadow: 0 0 8px #34d399;
+      gap: 0.8rem;
+      width: 100%;
+      margin-top: 0.7rem;
+      transform: translateZ(26px);
+      transition: transform 0.3s ease;
     }
 
     .card-actions {
       display: flex;
-      gap: 0.35rem;
+      gap: 0.4rem;
     }
     .action-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--muted);
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.75rem;
-      transition: all 0.2s;
+      font-size: 0.8rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .action-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.16);
       color: #fff;
-      border-color: var(--accent-2);
+      border-color: var(--accent-1);
       transform: scale(1.1);
     }
     .action-btn.fav-active {
-      color: #f43f5e;
-      border-color: rgba(244, 63, 94, 0.4);
-      background: rgba(244, 63, 94, 0.12);
+      color: #ff2a85;
+      border-color: rgba(255, 42, 133, 0.45);
+      background: rgba(255, 42, 133, 0.15);
+      box-shadow: 0 0 12px rgba(255, 42, 133, 0.35);
+    }
+
+    .favicon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .link-card:hover .favicon {
+      transform: scale(1.08);
+      box-shadow: 0 10px 24px var(--glow);
+    }
+
+    .site-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      letter-spacing: -0.01em;
     }
 
     .badge {
-      font-family: monospace;
-      font-size: 0.65rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
       text-transform: uppercase;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
     }
-    .badge.trusted { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge.new { background: rgba(34, 211, 238, 0.15); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3); }
+    .badge.trusted {
+      background: color-mix(in srgb, var(--accent-3) 14%, transparent);
+      color: var(--accent-3);
+      border: 1px solid color-mix(in srgb, var(--accent-3) 35%, transparent);
+    }
+    .badge.new {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
 
     /* Floating Top Button Dock */
     .floating-dock {
       position: fixed;
-      bottom: 1.25rem;
-      right: 1.25rem;
+      bottom: 1.5rem;
+      right: 1.5rem;
       z-index: 999;
+      display: flex;
+      gap: 0.5rem;
     }
     .dock-btn {
-      background: rgba(16, 22, 38, 0.9);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.15rem;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-      transition: all 0.2s;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .dock-btn:hover {
-      border-color: var(--accent-2);
-      box-shadow: 0 0 15px var(--glow);
-      transform: translateY(-2px);
+      border-color: var(--accent-1);
+      box-shadow: 0 0 20px var(--glow);
+      transform: translateY(-3px);
     }
 
     /* Toast Popup */
     .toast {
       position: fixed;
-      bottom: 1.5rem;
+      bottom: 1.75rem;
       left: 50%;
       transform: translateX(-50%) translateY(60px);
-      background: rgba(16, 22, 38, 0.95);
-      border: 1px solid var(--accent-2);
+      background: var(--card-hover);
+      border: 1px solid var(--accent-1);
       color: #fff;
-      padding: 0.55rem 1.2rem;
+      padding: 0.65rem 1.4rem;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px var(--glow);
       z-index: 1000;
       opacity: 0;
-      transition: all 0.25s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
     .toast.show {
@@ -393,34 +691,77 @@
     /* Footer DMCA */
     footer {
       max-width: 1200px;
-      margin: 4rem auto 1.5rem;
+      margin: 4.5rem auto 2rem;
+      padding: 2.25rem 1.5rem 0;
       text-align: center;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       border-top: 1px solid var(--border);
-      padding-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .top-utility-bar {
+        justify-content: center;
+      }
+      .categories-bar {
+        border-radius: 20px;
+      }
+      .section-card-wrapper {
+        padding: 1.5rem 1.15rem;
+      }
+      .section-header h2 {
+        font-size: 1.55rem;
+      }
     }
   </style>
 </head>
-<body>
+<body data-theme="purple">
 
-  <!-- Red Adblock & Browser Notice -->
+  <!-- Interactive 3D Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Adblock & Browser Notice -->
   <div class="adblock-notice">
-    Use <a href="https://brave.com/" target="_blank" rel="noopener noreferrer">Brave browser</a> or an adblocker like <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank" rel="noopener noreferrer">uBlock Origin</a>.
+    🔒 Recommended: Use <a href="https://brave.com/" target="_blank" rel="noopener noreferrer">Brave</a> or <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank" rel="noopener noreferrer">uBlock Origin</a>.
   </div>
 
-  <!-- Sticky Header Container with Categories on Left, Country Dropdown on Right -->
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="brand-cluster">
+      <div class="brand-logo">N</div>
+      <div class="brand-title">NEXUS</div>
+    </div>
+
+    <div class="utility-controls">
+      <div class="country-tip-container">
+        <span class="country-tip-label">Theme:</span>
+        <select id="theme-select" class="country-select" onchange="playClickSound(); setTheme(this.value)">
+          <option value="purple">Purple</option>
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="gold">Gold</option>
+        </select>
+      </div>
+
+      <div class="country-tip-container">
+        <span class="country-tip-label">Region:</span>
+        <select id="country-select" class="country-select" onchange="playClickSound(); setCountry(this.value)">
+          <option value="US">United States (US)</option>
+          <option value="UK">United Kingdom (UK)</option>
+          <option value="CA">Canada (CA)</option>
+          <option value="AU">Australia (AU)</option>
+          <option value="EU">Europe (EU)</option>
+          <option value="ASIA">Asia</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Transparent Header Container for Categories -->
   <div class="sticky-header">
     <div class="header-inner">
       <div class="categories-bar" id="categories-bar"></div>
-      <select id="country-select" class="country-select" onchange="setCountry(this.value)">
-        <option value="US">United States (US)</option>
-        <option value="UK">United Kingdom (UK)</option>
-        <option value="CA">Canada (CA)</option>
-        <option value="AU">Australia (AU)</option>
-        <option value="EU">Europe (EU)</option>
-        <option value="ASIA">Asia</option>
-      </select>
     </div>
   </div>
 
@@ -428,9 +769,10 @@
     <div id="main-container"></div>
   </main>
 
-  <!-- Floating Scroll-to-Top Button -->
+  <!-- Floating Scroll-to-Top & 3D Toggle Dock -->
   <div class="floating-dock">
-    <button class="dock-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Top</button>
+    <button class="dock-btn" id="toggle-3d-btn" onclick="playClickSound(); toggle3DMotion()">✦ 3D: ON</button>
+    <button class="dock-btn" onclick="playClickSound(); window.scrollTo({top: 0, behavior: 'smooth'})">↑ Top</button>
   </div>
 
   <!-- Toast Notification -->
@@ -441,34 +783,89 @@
   </footer>
 
   <script>
+    // --- Web Audio API Haptic Click Sound Generator with Auto-Unlock ---
+    let audioCtx = null;
+    function playClickSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(560, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(160, audioCtx.currentTime + 0.04);
+
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch (e) {}
+    }
+
+    document.addEventListener('click', () => {
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }, { once: true });
+
+    // Curated High-Res Online Photography Banners (Matching the Anime Unsplash Aesthetic)
     const categoryConfig = {
       "All": {
-        desc: "All streaming sites across every category.",
-        banner: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://plus.unsplash.com/premium_photo-1667482654587-e7091bb42e0c?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+        icon: "⚡",
+        tag: "NEXUS // ALL",
+        color1: 0xc084fc,
+        color2: 0xa855f7
       },
       "Favorites": {
-        desc: "Your personal bookmarked streaming sites.",
-        banner: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://plus.unsplash.com/premium_photo-1733259750830-4cc0bd8d3979?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+        icon: "❤️",
+        tag: "SAVED // FAVS",
+        color1: 0xfb7185,
+        color2: 0xe11d48
       },
       "Movies & Shows": {
-        desc: "Streaming sites for movies and TV.",
-        banner: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://nestflix.fun/img/_header/header-bg-1280w.jpg",
+        icon: "🎬",
+        tag: "CINEMA // HD",
+        color1: 0xfb7185,
+        color2: 0xfbbf24
       },
       "Anime": {
-        desc: "Anime streaming and aggregators.",
-        banner: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1200&auto=format&fit=crop",
+        icon: "⛩️",
+        tag: "ANIME // SUB+DUB",
+        color1: 0xe879f9,
+        color2: 0x38bdf8
       },
       "Manga": {
-        desc: "Manga readers and libraries.",
-        banner: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://i.pinimg.com/736x/c1/d5/6c/c1d56cf9e2e5c7904d0ae41ab37df589.jpg",
+        icon: "📖",
+        tag: "MANGA // SCANS",
+        color1: 0x34d399,
+        color2: 0x10b981
       },
       "Live TV & Sports": {
-        desc: "Live channels and sports streams.",
-        banner: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://i.pinimg.com/736x/e2/ae/c3/e2aec3d3bc494862a537d1b8792ab227.jpg",
+        icon: "📡",
+        tag: "LIVE // ARENA",
+        color1: 0x38bdf8,
+        color2: 0x2563eb
       },
       "Apps": {
-        desc: "Native apps and APKs.",
-        banner: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop"
+        banner: "https://plus.unsplash.com/premium_photo-1674374443275-20dae04975ac?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+        icon: "🚀",
+        tag: "TOOLS // APPS",
+        color1: 0xfbbf24,
+        color2: 0xea580c
       }
     };
 
@@ -501,19 +898,38 @@
     }
 
     function openSite(domain) {
+      playClickSound();
       window.open("https://" + domain, "_blank", "noopener,noreferrer");
     }
 
     function copyLink(domain, event) {
       event.stopPropagation();
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText("https://" + domain);
+      playClickSound();
+      const url = "https://" + domain;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).catch(() => fallbackCopy(url));
+      } else {
+        fallbackCopy(url);
       }
-      showToast("Copied https://" + domain + " 📋");
+      showToast("Copied " + url + " 📋");
+    }
+
+    function fallbackCopy(text) {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      } catch (e) {}
     }
 
     function toggleFav(domain, event) {
       event.stopPropagation();
+      playClickSound();
       if (favorites.includes(domain)) {
         favorites = favorites.filter(d => d !== domain);
         showToast("Removed from Favorites");
@@ -536,6 +952,24 @@
       renderContent();
     }
 
+    const paletteMap = {
+      purple: [0xc084fc, 0xa855f7, 0xe879f9],
+      green:  [0x34d399, 0x10b981, 0xa3e635],
+      red:    [0xfb7185, 0xe11d48, 0xfda4af],
+      blue:   [0x38bdf8, 0x2563eb, 0x22d3ee],
+      gold:   [0xfbbf24, 0xea580c, 0xfde047]
+    };
+
+    function setTheme(themeName) {
+      const validTheme = paletteMap[themeName] ? themeName : 'purple';
+      document.body.setAttribute('data-theme', validTheme);
+      try {
+        localStorage.setItem('nexus_theme', validTheme);
+      } catch (e) {}
+      const colors = paletteMap[validTheme];
+      update3DPalette(colors[0], colors[1], colors[2]);
+    }
+
     function renderCategoriesBar() {
       categoriesBar.innerHTML = categoriesList.map(cat => {
         let count = 0;
@@ -547,7 +981,7 @@
           count = sitesData.filter(s => s.category === cat && s.countries.includes(activeCountry)).length;
         }
         return `
-          <button class="cat-tab ${cat === activeCategory ? 'active' : ''}" onclick="switchCategory('${cat}')">
+          <button class="cat-tab ${cat === activeCategory ? 'active' : ''}" onclick="playClickSound(); switchCategory('${cat}')">
             ${cat === 'Favorites' ? '❤️ ' : ''}${cat} <span>${count}</span>
           </button>
         `;
@@ -558,6 +992,9 @@
       if (activeCategory === cat) return;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       activeCategory = cat;
+      if (categoryConfig[cat]) {
+        update3DPalette(categoryConfig[cat].color1, categoryConfig[cat].color2);
+      }
       renderCategoriesBar();
       renderContent();
     }
@@ -569,58 +1006,56 @@
         const subCategories = ["Movies & Shows", "Anime", "Manga", "Live TV & Sports", "Apps"];
         sectionsToRender = subCategories.map(subCat => ({
           name: subCat,
-          desc: categoryConfig[subCat].desc,
           banner: categoryConfig[subCat].banner,
+          icon: categoryConfig[subCat].icon,
+          tag: categoryConfig[subCat].tag,
           sites: sitesData.filter(s => s.category === subCat && s.countries.includes(activeCountry))
         })).filter(sec => sec.sites.length > 0);
       } else if (activeCategory === "Favorites") {
         sectionsToRender = [{
           name: "Favorites",
-          desc: categoryConfig["Favorites"].desc,
           banner: categoryConfig["Favorites"].banner,
+          icon: categoryConfig["Favorites"].icon,
+          tag: categoryConfig["Favorites"].tag,
           sites: sitesData.filter(s => favorites.includes(s.domain))
         }];
       } else {
         const catSites = sitesData.filter(s => s.category === activeCategory && s.countries.includes(activeCountry));
         sectionsToRender = [{
           name: activeCategory,
-          desc: categoryConfig[activeCategory].desc,
           banner: categoryConfig[activeCategory].banner,
+          icon: categoryConfig[activeCategory].icon,
+          tag: categoryConfig[activeCategory].tag,
           sites: catSites
         }];
       }
 
       mainContainer.innerHTML = sectionsToRender.map((sec, secIdx) => `
         <div class="section-card-wrapper" id="sec-${secIdx}">
-          <div class="banner-overlay" style="background-image: url('${sec.banner}');"></div>
+          <div class="banner-overlay" style="background-image: url(&quot;${sec.banner}&quot;);"></div>
+          <div class="category-watermark">${sec.tag}</div>
           <div class="section-header">
-            <h2>${sec.name}</h2>
+            <div class="section-title-group">
+              <span class="section-icon">${sec.icon}</span>
+              <h2>${sec.name}</h2>
+            </div>
             <span class="count-pill">${sec.sites.length} available</span>
           </div>
-          <p class="section-desc">${sec.desc}</p>
           <div class="grid">
             ${sec.sites.length > 0 ? sec.sites.map((site) => {
               const isFav = favorites.includes(site.domain);
               return `
-                <div class="link-card" onclick="openSite('${site.domain}')">
-                  <div>
-                    <div class="card-top">
-                      <div class="title-group">
-                        <img class="favicon" src="https://www.google.com/s2/favicons?domain=${site.domain}&sz=32" alt="" loading="lazy" />
-                        <span class="site-name">${site.name}</span>
-                      </div>
-                      ${site.badge ? `<span class="badge ${site.badge}">${site.badge}</span>` : ''}
-                    </div>
-                    <span class="site-domain">${site.domain}</span>
-                  </div>
-                  <div class="card-footer">
-                    <div class="status-indicator">
-                      <span class="status-dot"></span> Online
-                    </div>
+                <div class="link-card" onclick="openSite('${site.domain}')" data-url="${site.domain}" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
+                  <div class="card-top-row">
+                    ${site.badge ? `<span class="badge ${site.badge}">${site.badge}</span>` : '<span></span>'}
                     <div class="card-actions">
                       <button class="action-btn" onclick="copyLink('${site.domain}', event)" title="Copy URL">📋</button>
                       <button class="action-btn ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${site.domain}', event)" title="Favorite">${isFav ? '♥' : '♡'}</button>
                     </div>
+                  </div>
+                  <div class="card-content-center">
+                    <img class="favicon" src="https://www.google.com/s2/favicons?domain=${site.domain}&sz=128" alt="" loading="lazy" />
+                    <span class="site-name">${site.name}</span>
                   </div>
                 </div>
               `;
@@ -636,9 +1071,893 @@
       }, 30);
     }
 
+    // --- 3D Card Parabolic Tilt & Interactive Mouse Glow Effect ---
+    function handleCardTilt(e, card) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+
+      const xc = rect.width / 2;
+      const yc = rect.height / 2;
+
+      const dx = x - xc;
+      const dy = y - yc;
+
+      const maxAngle = 13;
+      const rotateX = (-dy / yc) * maxAngle;
+      const rotateY = (dx / xc) * maxAngle;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.02)`;
+    }
+
+    function resetCardTilt(card) {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)`;
+    }
+
+    // --- Three.js Interactive 3D Movies, Anime & Manga Models Background ---
+    let scene, camera, renderer, shapesGroup, particlesMesh;
+    let is3DRunning = true;
+    let animFrameId = null;
+    let targetMouseX = 0, targetMouseY = 0;
+    let currentMouseX = 0, currentMouseY = 0;
+    let primaryWireMat, secondaryWireMat, particleMat;
+    let pointLight1, pointLight2;
+
+    function makeCanvasTexture(drawFn, w = 256, h = 256) {
+      const c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      const ctx = c.getContext('2d');
+      drawFn(ctx, w, h);
+      const tex = new THREE.CanvasTexture(c);
+      tex.needsUpdate = true;
+      return tex;
+    }
+
+    // 1. MOVIE CLAPPERBOARD 3D MODEL
+    function createClapperboardModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const slateTex = makeCanvasTexture((ctx, w, h) => {
+        ctx.fillStyle = '#0b0e1a';
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 5;
+        ctx.strokeRect(10, 10, w - 20, h - 20);
+        ctx.fillStyle = '#c084fc';
+        ctx.font = 'bold 24px monospace';
+        ctx.fillText('NEXUS // SCENE 01', 22, 55);
+        ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(20, 80); ctx.lineTo(w - 20, 80);
+        ctx.moveTo(20, 135); ctx.lineTo(w - 20, 135);
+        ctx.moveTo(128, 80); ctx.lineTo(128, 190);
+        ctx.stroke();
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 20px monospace';
+        ctx.fillText('TAKE: 4K', 24, 115);
+        ctx.fillText('FPS: 60', 142, 115);
+      }, 256, 200);
+
+      const slateMat = new THREE.MeshStandardMaterial({ map: slateTex, roughness: 0.35, metalness: 0.3 });
+      const slateGeo = new THREE.BoxGeometry(3.8, 2.7, 0.28);
+      const slateMesh = new THREE.Mesh(slateGeo, slateMat);
+      group.add(slateMesh);
+
+      const slateEdges = new THREE.LineSegments(new THREE.EdgesGeometry(slateGeo), accentMat);
+      group.add(slateEdges);
+
+      const stripeTex = makeCanvasTexture((ctx, w, h) => {
+        ctx.fillStyle = '#090b14';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#f8fafc';
+        for (let i = -h; i < w; i += 48) {
+          ctx.beginPath();
+          ctx.moveTo(i, h);
+          ctx.lineTo(i + 24, h);
+          ctx.lineTo(i + 24 + h, 0);
+          ctx.lineTo(i + h, 0);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }, 256, 64);
+
+      const barMat = new THREE.MeshStandardMaterial({ map: stripeTex, roughness: 0.3 });
+      const bottomBar = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.42, 0.3), barMat);
+      bottomBar.position.set(0, 1.56, 0);
+      group.add(bottomBar);
+
+      const topBarPivot = new THREE.Group();
+      topBarPivot.position.set(-1.9, 1.78, 0);
+      const topBar = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.42, 0.3), barMat);
+      topBar.position.set(1.9, 0.21, 0);
+      topBarPivot.add(topBar);
+      topBarPivot.rotation.z = 0.28;
+      group.add(topBarPivot);
+
+      group.userData.category = "Movies & Shows";
+      return group;
+    }
+
+    // 2. 3D CINEMA FILM REEL MODEL
+    function createFilmReelModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const metalMat = new THREE.MeshStandardMaterial({ color: 0x1e243b, metalness: 0.75, roughness: 0.25 });
+
+      const rimGeo = new THREE.TorusGeometry(2.1, 0.14, 12, 40);
+      const topRim = new THREE.Mesh(rimGeo, accentMat);
+      topRim.position.z = 0.25;
+      const botRim = new THREE.Mesh(rimGeo, accentMat);
+      botRim.position.z = -0.25;
+      group.add(topRim, botRim);
+
+      const coreGeo = new THREE.CylinderGeometry(1.85, 1.85, 0.42, 32);
+      coreGeo.rotateX(Math.PI / 2);
+      const core = new THREE.Mesh(coreGeo, metalMat);
+      group.add(core);
+
+      const hubGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.56, 20);
+      hubGeo.rotateX(Math.PI / 2);
+      const hub = new THREE.Mesh(hubGeo, secondaryMat);
+      group.add(hub);
+
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.22, 1.9, 0.52), accentMat);
+        spoke.position.set(Math.cos(angle) * 1.0, Math.sin(angle) * 1.0, 0);
+        spoke.rotation.z = angle + Math.PI / 2;
+        group.add(spoke);
+      }
+
+      group.userData.category = "Movies & Shows";
+      return group;
+    }
+
+    // 3. 3D POPCORN BUCKET MODEL
+    function createPopcornModel(accentMat) {
+      const group = new THREE.Group();
+      const stripeTex = makeCanvasTexture((ctx, w, h) => {
+        ctx.fillStyle = '#fff5f5';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#f43f5e';
+        for (let x = 0; x < w; x += 32) {
+          ctx.fillRect(x, 0, 16, h);
+        }
+        ctx.fillStyle = '#090b14';
+        ctx.beginPath();
+        ctx.arc(w / 2, h / 2, 54, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('POPCORN', w / 2, h / 2 + 8);
+      }, 256, 256);
+
+      const tubGeo = new THREE.CylinderGeometry(1.45, 1.0, 2.7, 24, 1, false);
+      const tubMat = new THREE.MeshStandardMaterial({ map: stripeTex, roughness: 0.4 });
+      const tub = new THREE.Mesh(tubGeo, tubMat);
+      group.add(tub);
+
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(1.46, 0.08, 10, 32), accentMat);
+      rim.rotation.x = Math.PI / 2;
+      rim.position.y = 1.35;
+      group.add(rim);
+
+      const puffMat = new THREE.MeshStandardMaterial({
+        color: 0xfde047,
+        emissive: 0xca8a04,
+        emissiveIntensity: 0.25,
+        roughness: 0.5
+      });
+      const puffPositions = [
+        [0, 1.55, 0, 0.65],
+        [-0.65, 1.48, 0.4, 0.52],
+        [0.65, 1.5, 0.35, 0.54],
+        [-0.5, 1.52, -0.55, 0.5],
+        [0.55, 1.48, -0.5, 0.52],
+        [0, 1.55, 0.72, 0.46],
+        [0, 1.52, -0.72, 0.46],
+        [-0.85, 1.4, -0.1, 0.44],
+        [0.85, 1.42, -0.05, 0.45]
+      ];
+      puffPositions.forEach(([px, py, pz, r]) => {
+        const puff = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 1), puffMat);
+        puff.position.set(px, py, pz);
+        puff.rotation.set(px, py, pz);
+        group.add(puff);
+      });
+
+      group.userData.category = "Movies & Shows";
+      return group;
+    }
+
+    // 4. 3D ANIME KATANA SWORD + SLASH AURA
+    function createKatanaModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const bladeGeo = new THREE.BoxGeometry(0.18, 5.4, 0.06);
+      const bladeMat = new THREE.MeshStandardMaterial({
+        color: 0xf8fafc,
+        emissive: 0x38bdf8,
+        emissiveIntensity: 0.4,
+        metalness: 0.9,
+        roughness: 0.1
+      });
+      const blade = new THREE.Mesh(bladeGeo, bladeMat);
+      blade.position.y = 1.2;
+      group.add(blade);
+
+      const tsubaGeo = new THREE.CylinderGeometry(0.65, 0.65, 0.12, 8);
+      const tsubaMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, metalness: 0.8, roughness: 0.2 });
+      const tsuba = new THREE.Mesh(tsubaGeo, tsubaMat);
+      tsuba.position.y = -1.5;
+      group.add(tsuba);
+
+      const handleGeo = new THREE.CylinderGeometry(0.16, 0.16, 1.9, 12);
+      const handleMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.6 });
+      const handle = new THREE.Mesh(handleGeo, handleMat);
+      handle.position.y = -2.5;
+      group.add(handle);
+
+      for (let i = 0; i < 5; i++) {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.04, 8, 16), secondaryMat);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = -1.8 - i * 0.34;
+        group.add(ring);
+      }
+
+      const slashGeo = new THREE.TorusGeometry(2.4, 0.06, 8, 42, Math.PI * 1.15);
+      const slash = new THREE.Mesh(slashGeo, accentMat);
+      slash.rotation.z = -0.6;
+      slash.rotation.x = 0.5;
+      group.add(slash);
+
+      group.rotation.z = -0.65;
+      group.userData.category = "Anime";
+      return group;
+    }
+
+    // 5. 3D JAPANESE ANIME TORII GATE
+    function createToriiGateModel(accentMat) {
+      const group = new THREE.Group();
+      const gateMat = new THREE.MeshStandardMaterial({
+        color: 0xff2a85,
+        emissive: 0xff2a85,
+        emissiveIntensity: 0.35,
+        roughness: 0.3,
+        metalness: 0.4
+      });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5 });
+
+      const leftPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 3.8, 16), gateMat);
+      leftPillar.position.set(-1.35, 0, 0);
+      const rightPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 3.8, 16), gateMat);
+      rightPillar.position.set(1.35, 0, 0);
+      group.add(leftPillar, rightPillar);
+
+      const topBeam = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.28, 0.36), darkMat);
+      topBeam.position.set(0, 1.85, 0);
+      const subBeam = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.2, 0.28), gateMat);
+      subBeam.position.set(0, 1.62, 0);
+
+      const leftTip = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.24, 0.34), gateMat);
+      leftTip.position.set(-2.1, 1.95, 0);
+      leftTip.rotation.z = -0.25;
+      const rightTip = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.24, 0.34), gateMat);
+      rightTip.position.set(2.1, 1.95, 0);
+      rightTip.rotation.z = 0.25;
+
+      const crossBar = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.22, 0.24), gateMat);
+      crossBar.position.set(0, 0.95, 0);
+
+      const plaque = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.68, 0.28), accentMat);
+      plaque.position.set(0, 1.28, 0);
+
+      group.add(topBeam, subBeam, leftTip, rightTip, crossBar, plaque);
+      group.userData.category = "Anime";
+      return group;
+    }
+
+    // 6. 3D OPEN MANGA BOOK WITH PANELS & FLOATING "ゴゴゴ" SFX
+    function createMangaBookModel(accentMat) {
+      const group = new THREE.Group();
+
+      const pageTexLeft = makeCanvasTexture((ctx, w, h) => {
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = '#090b14';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(14, 14, w - 28, 95);
+        ctx.strokeRect(14, 122, (w - 36) / 2, 120);
+        ctx.strokeRect(22 + (w - 36) / 2, 122, (w - 36) / 2, 120);
+        ctx.strokeRect(14, 254, w - 28, 88);
+        ctx.lineWidth = 2;
+        for (let i = 20; i < w - 20; i += 12) {
+          ctx.beginPath();
+          ctx.moveTo(i, 16);
+          ctx.lineTo(w / 2, 62);
+          ctx.stroke();
+        }
+        ctx.fillStyle = '#090b14';
+        ctx.font = '900 34px sans-serif';
+        ctx.fillText('MANGA', 36, 74);
+        ctx.font = 'bold 28px sans-serif';
+        ctx.fillText('ドドド', 26, 195);
+        ctx.fillText('⚡', 155, 195);
+      }, 256, 360);
+
+      const pageTexRight = makeCanvasTexture((ctx, w, h) => {
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = '#090b14';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(14, 14, w - 28, 155);
+        ctx.strokeRect(14, 182, w - 28, 160);
+        ctx.fillStyle = '#090b14';
+        for (let x = 28; x < w - 28; x += 14) {
+          for (let y = 196; y < 328; y += 14) {
+            ctx.beginPath();
+            ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(w / 2, 90, 75, 42, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#090b14';
+        ctx.font = '900 30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('ゴゴゴ!!', w / 2, 100);
+      }, 256, 360);
+
+      const coverMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.4 });
+      const leftPageMat = new THREE.MeshStandardMaterial({ map: pageTexLeft, roughness: 0.3 });
+      const rightPageMat = new THREE.MeshStandardMaterial({ map: pageTexRight, roughness: 0.3 });
+
+      const leftWing = new THREE.Group();
+      const leftCover = new THREE.Mesh(new THREE.BoxGeometry(2.1, 2.9, 0.12), coverMat);
+      leftCover.position.set(-1.05, 0, -0.06);
+      const leftPage = new THREE.Mesh(new THREE.BoxGeometry(1.98, 2.76, 0.14), leftPageMat);
+      leftPage.position.set(-1.02, 0, 0.04);
+      leftWing.add(leftCover, leftPage);
+      leftWing.rotation.y = 0.32;
+
+      const rightWing = new THREE.Group();
+      const rightCover = new THREE.Mesh(new THREE.BoxGeometry(2.1, 2.9, 0.12), coverMat);
+      rightCover.position.set(1.05, 0, -0.06);
+      const rightPage = new THREE.Mesh(new THREE.BoxGeometry(1.98, 2.76, 0.14), rightPageMat);
+      rightPage.position.set(1.02, 0, 0.04);
+      rightWing.add(rightCover, rightPage);
+      rightWing.rotation.y = -0.32;
+
+      const spine = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 2.92, 12), accentMat);
+      group.add(leftWing, rightWing, spine);
+
+      group.userData.category = "Manga";
+      return group;
+    }
+
+    // 7. 3D STREAMING PLAY TV / LIVE ARENA MONITOR
+    function createStreamingTVModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.6, roughness: 0.3 });
+
+      const tvBox = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.4, 0.9), bodyMat);
+      group.add(tvBox);
+
+      const frameEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(3.64, 2.44, 0.92)),
+        accentMat
+      );
+      group.add(frameEdges);
+
+      const screenMat = new THREE.MeshStandardMaterial({
+        color: 0x06b6d4,
+        emissive: 0x38bdf8,
+        emissiveIntensity: 0.35,
+        roughness: 0.15
+      });
+      const screen = new THREE.Mesh(new THREE.BoxGeometry(3.1, 1.9, 0.08), screenMat);
+      screen.position.z = 0.45;
+      group.add(screen);
+
+      const playGeo = new THREE.ConeGeometry(0.55, 0.85, 3);
+      playGeo.rotateZ(-Math.PI / 2);
+      const playMesh = new THREE.Mesh(playGeo, secondaryMat);
+      playMesh.position.set(0.08, 0, 0.68);
+      group.add(playMesh);
+
+      const antGeo = new THREE.CylinderGeometry(0.03, 0.03, 1.4, 8);
+      const ant1 = new THREE.Mesh(antGeo, accentMat);
+      ant1.position.set(-0.6, 1.65, 0);
+      ant1.rotation.z = 0.45;
+      const ant2 = new THREE.Mesh(antGeo, accentMat);
+      ant2.position.set(0.6, 1.65, 0);
+      ant2.rotation.z = -0.45;
+      group.add(ant1, ant2);
+
+      group.userData.category = "Live TV & Sports";
+      return group;
+    }
+
+    // 8. 3D ANIME SHURIKEN STAR
+    function createShurikenModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const starShape = new THREE.Shape();
+      const outerR = 2.0;
+      const innerR = 0.56;
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        const r = i % 2 === 0 ? outerR : innerR;
+        const x = Math.cos(angle) * r;
+        const y = Math.sin(angle) * r;
+        if (i === 0) starShape.moveTo(x, y);
+        else starShape.lineTo(x, y);
+      }
+      starShape.closePath();
+
+      const holePath = new THREE.Path();
+      holePath.absarc(0, 0, 0.32, 0, Math.PI * 2, false);
+      starShape.holes.push(holePath);
+
+      const extrudeGeo = new THREE.ExtrudeGeometry(starShape, {
+        depth: 0.16,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        steps: 1,
+        bevelSize: 0.06,
+        bevelThickness: 0.06
+      });
+      extrudeGeo.center();
+
+      const bladeMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.85, roughness: 0.2 });
+      const starMesh = new THREE.Mesh(extrudeGeo, bladeMat);
+      group.add(starMesh);
+
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.06, 10, 24), secondaryMat);
+      group.add(ring);
+
+      group.userData.category = "Anime";
+      return group;
+    }
+
+    // 9. 3D ANIME KUNAI DAGGER MODEL
+    function createKunaiModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const bladeShape = new THREE.Shape();
+      bladeShape.moveTo(0, 2.3);
+      bladeShape.lineTo(0.65, 0.2);
+      bladeShape.lineTo(0, -0.35);
+      bladeShape.lineTo(-0.65, 0.2);
+      bladeShape.closePath();
+
+      const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, {
+        depth: 0.12,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        steps: 1,
+        bevelSize: 0.04,
+        bevelThickness: 0.04
+      });
+      bladeGeo.center();
+      const bladeMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.9, roughness: 0.15 });
+      const blade = new THREE.Mesh(bladeGeo, bladeMat);
+      blade.position.y = 1.05;
+      group.add(blade);
+
+      const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 1.35, 12), secondaryMat);
+      grip.position.y = -0.65;
+      group.add(grip);
+
+      const pommelRing = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.08, 12, 24), accentMat);
+      pommelRing.position.y = -1.65;
+      group.add(pommelRing);
+
+      group.rotation.z = 0.55;
+      group.userData.category = "Anime";
+      return group;
+    }
+
+    // 10. 3D ANIME 4-STAR DRAGON ORB
+    function createDragonOrbModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const orbMat = new THREE.MeshStandardMaterial({
+        color: 0xfbbf24,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.35,
+        transparent: true,
+        opacity: 0.72,
+        roughness: 0.1,
+        metalness: 0.2
+      });
+      const orb = new THREE.Mesh(new THREE.SphereGeometry(1.65, 28, 28), orbMat);
+      group.add(orb);
+
+      const starMat = new THREE.MeshStandardMaterial({
+        color: 0xff2a85,
+        emissive: 0xff2a85,
+        emissiveIntensity: 0.85
+      });
+      const starOffsets = [
+        [-0.45, 0.4, 0.2],
+        [0.45, 0.4, -0.1],
+        [-0.38, -0.42, -0.2],
+        [0.42, -0.38, 0.25]
+      ];
+      starOffsets.forEach(([sx, sy, sz]) => {
+        const star = new THREE.Mesh(new THREE.OctahedronGeometry(0.26, 0), starMat);
+        star.position.set(sx, sy, sz);
+        group.add(star);
+      });
+
+      const auraRing = new THREE.Mesh(new THREE.TorusGeometry(2.15, 0.06, 10, 40), accentMat);
+      auraRing.rotation.x = 1.1;
+      auraRing.rotation.y = 0.4;
+      group.add(auraRing);
+
+      group.userData.category = "Anime";
+      return group;
+    }
+
+    // 11. 3D CINEMA 3D GLASSES (RED & CYAN LENSES)
+    function createCinemaGlassesModel(accentMat) {
+      const group = new THREE.Group();
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.3, metalness: 0.2 });
+
+      const leftFrame = new THREE.Mesh(new THREE.BoxGeometry(1.75, 1.15, 0.18), frameMat);
+      leftFrame.position.x = -1.05;
+      const rightFrame = new THREE.Mesh(new THREE.BoxGeometry(1.75, 1.15, 0.18), frameMat);
+      rightFrame.position.x = 1.05;
+      const bridge = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.24, 0.18), frameMat);
+      bridge.position.y = 0.2;
+      group.add(leftFrame, rightFrame, bridge);
+
+      const redLensMat = new THREE.MeshStandardMaterial({
+        color: 0xff2a85,
+        emissive: 0xff2a85,
+        emissiveIntensity: 0.5,
+        transparent: true,
+        opacity: 0.85
+      });
+      const cyanLensMat = new THREE.MeshStandardMaterial({
+        color: 0x00f5d4,
+        emissive: 0x00f5d4,
+        emissiveIntensity: 0.5,
+        transparent: true,
+        opacity: 0.85
+      });
+
+      const leftLens = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.82, 0.22), redLensMat);
+      leftLens.position.x = -1.05;
+      const rightLens = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.82, 0.22), cyanLensMat);
+      rightLens.position.x = 1.05;
+      group.add(leftLens, rightLens);
+
+      const leftArm = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.2, 1.8), accentMat);
+      leftArm.position.set(-1.85, 0.15, -0.85);
+      const rightArm = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.2, 1.8), accentMat);
+      rightArm.position.set(1.85, 0.15, -0.85);
+      group.add(leftArm, rightArm);
+
+      group.userData.category = "Movies & Shows";
+      return group;
+    }
+
+    // 12. 3D STREAMER / ANIME HEADPHONES
+    function createHeadphonesModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.6, roughness: 0.3 });
+
+      const bandGeo = new THREE.TorusGeometry(1.55, 0.14, 12, 32, Math.PI);
+      const band = new THREE.Mesh(bandGeo, accentMat);
+      group.add(band);
+
+      const cupGeo = new THREE.CylinderGeometry(0.68, 0.68, 0.45, 24);
+      cupGeo.rotateZ(Math.PI / 2);
+      const leftCup = new THREE.Mesh(cupGeo, darkMat);
+      leftCup.position.set(-1.5, -0.25, 0);
+      const rightCup = new THREE.Mesh(cupGeo, darkMat);
+      rightCup.position.set(1.5, -0.25, 0);
+
+      const ringGeo = new THREE.TorusGeometry(0.58, 0.06, 10, 24);
+      ringGeo.rotateY(Math.PI / 2);
+      const leftRing = new THREE.Mesh(ringGeo, secondaryMat);
+      leftRing.position.set(-1.74, -0.25, 0);
+      const rightRing = new THREE.Mesh(ringGeo, secondaryMat);
+      rightRing.position.set(1.74, -0.25, 0);
+
+      group.add(leftCup, rightCup, leftRing, rightRing);
+      group.userData.category = "Live TV & Sports";
+      return group;
+    }
+
+    // 13. 3D NEON GAMEPAD CONTROLLER (APPS / ENTERTAINMENT)
+    function createControllerModel(accentMat, secondaryMat) {
+      const group = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b, metalness: 0.5, roughness: 0.35 });
+
+      const centerBody = new THREE.Mesh(new THREE.BoxGeometry(2.6, 1.3, 0.45), bodyMat);
+      group.add(centerBody);
+
+      const gripGeo = new THREE.CylinderGeometry(0.45, 0.32, 1.6, 16);
+      const leftGrip = new THREE.Mesh(gripGeo, bodyMat);
+      leftGrip.position.set(-1.15, -0.55, 0);
+      leftGrip.rotation.z = -0.35;
+      const rightGrip = new THREE.Mesh(gripGeo, bodyMat);
+      rightGrip.position.set(1.15, -0.55, 0);
+      rightGrip.rotation.z = 0.35;
+      group.add(leftGrip, rightGrip);
+
+      const dpadH = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.2, 0.15), accentMat);
+      dpadH.position.set(-0.75, 0.1, 0.26);
+      const dpadV = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.62, 0.15), accentMat);
+      dpadV.position.set(-0.75, 0.1, 0.26);
+      group.add(dpadH, dpadV);
+
+      const btnPositions = [
+        [0.75, 0.32],
+        [0.75, -0.12],
+        [0.53, 0.1],
+        [0.97, 0.1]
+      ];
+      btnPositions.forEach(([bx, by], i) => {
+        const btn = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.11, 0.11, 0.15, 12).rotateX(Math.PI / 2),
+          i % 2 === 0 ? secondaryMat : accentMat
+        );
+        btn.position.set(bx, by, 0.26);
+        group.add(btn);
+      });
+
+      group.userData.category = "Apps";
+      return group;
+    }
+
+    // 14. 3D MANGA SPEECH BUBBLE ("ドドド!!")
+    function createMangaBubbleModel(accentMat) {
+      const group = new THREE.Group();
+      const bubbleTex = makeCanvasTexture((ctx, w, h) => {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#090b14';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.ellipse(w / 2, h / 2 - 10, 108, 72, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 20, h / 2 + 55);
+        ctx.lineTo(w / 2 - 55, h - 12);
+        ctx.lineTo(w / 2 + 15, h / 2 + 58);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#090b14';
+        ctx.font = '900 42px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('ドドド!!', w / 2, h / 2 + 4);
+      }, 256, 256);
+
+      const mat = new THREE.MeshStandardMaterial({
+        map: bubbleTex,
+        transparent: true,
+        roughness: 0.2
+      });
+      const panel = new THREE.Mesh(new THREE.BoxGeometry(2.8, 2.5, 0.14), mat);
+      const rim = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(2.84, 2.54, 0.16)),
+        accentMat
+      );
+      group.add(panel, rim);
+      group.userData.category = "Manga";
+      return group;
+    }
+
+    function init3DBackground() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 26;
+
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+
+      pointLight1 = new THREE.PointLight(0xc084fc, 1.9, 85);
+      pointLight1.position.set(-18, 14, 15);
+      scene.add(pointLight1);
+
+      pointLight2 = new THREE.PointLight(0xa855f7, 1.7, 85);
+      pointLight2.position.set(18, -12, 15);
+      scene.add(pointLight2);
+
+      shapesGroup = new THREE.Group();
+      scene.add(shapesGroup);
+
+      primaryWireMat = new THREE.MeshStandardMaterial({
+        color: 0xc084fc,
+        emissive: 0xc084fc,
+        emissiveIntensity: 0.45,
+        roughness: 0.25,
+        metalness: 0.6
+      });
+
+      secondaryWireMat = new THREE.MeshStandardMaterial({
+        color: 0xa855f7,
+        emissive: 0xa855f7,
+        emissiveIntensity: 0.45,
+        roughness: 0.25,
+        metalness: 0.6
+      });
+
+      const models = [
+        { mesh: createClapperboardModel(primaryWireMat, secondaryWireMat), pos: [-16.5, 8.5, -7], scale: 1.0 },
+        { mesh: createMangaBookModel(primaryWireMat), pos: [16.5, 8.2, -8], scale: 1.1 },
+        { mesh: createKatanaModel(primaryWireMat, secondaryWireMat), pos: [-15.8, -7.8, -6], scale: 1.0 },
+        { mesh: createToriiGateModel(primaryWireMat), pos: [16.2, -8.2, -8], scale: 1.0 },
+        { mesh: createFilmReelModel(primaryWireMat, secondaryWireMat), pos: [-8.5, 11.8, -13], scale: 0.95 },
+        { mesh: createPopcornModel(primaryWireMat), pos: [8.5, -11.5, -11], scale: 0.95 },
+        { mesh: createStreamingTVModel(primaryWireMat, secondaryWireMat), pos: [20.5, 0.5, -12], scale: 0.9 },
+        { mesh: createShurikenModel(primaryWireMat, secondaryWireMat), pos: [-20.5, 1.2, -11], scale: 0.9 },
+        { mesh: createDragonOrbModel(primaryWireMat, secondaryWireMat), pos: [0, 12.8, -14], scale: 0.95 },
+        { mesh: createCinemaGlassesModel(primaryWireMat), pos: [-1.5, -12.5, -13], scale: 0.95 },
+        { mesh: createKunaiModel(primaryWireMat, secondaryWireMat), pos: [9.5, 12.2, -14], scale: 0.9 },
+        { mesh: createHeadphonesModel(primaryWireMat, secondaryWireMat), pos: [-9.8, -11.8, -13], scale: 0.9 },
+        { mesh: createControllerModel(primaryWireMat, secondaryWireMat), pos: [21.0, -5.8, -14], scale: 0.88 },
+        { mesh: createMangaBubbleModel(primaryWireMat), pos: [-21.0, -5.2, -13], scale: 0.88 }
+      ];
+
+      models.forEach((item, idx) => {
+        const obj = item.mesh;
+        obj.position.set(item.pos[0], item.pos[1], item.pos[2]);
+        obj.scale.setScalar(item.scale);
+        obj.userData = {
+          ...obj.userData,
+          baseScale: item.scale,
+          targetScale: item.scale,
+          rotSpeedX: (idx % 2 === 0 ? 1 : -1) * 0.0032,
+          rotSpeedY: (idx % 3 === 0 ? 1 : -1) * 0.0055,
+          floatSpeed: 0.0012 + (idx * 0.00015),
+          floatOffset: idx * 0.9,
+          baseY: item.pos[1]
+        };
+        shapesGroup.add(obj);
+      });
+
+      const particleCount = 240;
+      const posArray = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        posArray[i] = (Math.random() - 0.5) * 75;
+        posArray[i + 1] = (Math.random() - 0.5) * 55;
+        posArray[i + 2] = (Math.random() - 0.5) * 35 - 5;
+      }
+      const particlesGeo = new THREE.BufferGeometry();
+      particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      particleMat = new THREE.PointsMaterial({
+        size: 0.16,
+        color: 0xe879f9,
+        transparent: true,
+        opacity: 0.55
+      });
+      particlesMesh = new THREE.Points(particlesGeo, particleMat);
+      scene.add(particlesMesh);
+
+      // Sync 3D colors with current saved theme on load
+      const activeTheme = document.body.getAttribute('data-theme') || 'purple';
+      if (paletteMap[activeTheme]) {
+        update3DPalette(paletteMap[activeTheme][0], paletteMap[activeTheme][1], paletteMap[activeTheme][2]);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        targetMouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      window.addEventListener('resize', () => {
+        if (!camera || !renderer) return;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      animate3D();
+    }
+
+    function update3DPalette(hex1, hex2, hex3) {
+      if (primaryWireMat && secondaryWireMat) {
+        primaryWireMat.color.setHex(hex1);
+        primaryWireMat.emissive.setHex(hex1);
+        secondaryWireMat.color.setHex(hex2);
+        secondaryWireMat.emissive.setHex(hex2);
+      }
+      if (pointLight1 && pointLight2) {
+        pointLight1.color.setHex(hex1);
+        pointLight2.color.setHex(hex2);
+      }
+      if (particleMat && hex3) {
+        particleMat.color.setHex(hex3);
+      }
+      if (shapesGroup) {
+        shapesGroup.children.forEach((obj) => {
+          if (activeCategory === "All" || activeCategory === "Favorites") {
+            obj.userData.targetScale = obj.userData.baseScale;
+          } else if (obj.userData.category === activeCategory) {
+            obj.userData.targetScale = obj.userData.baseScale * 1.35;
+          } else {
+            obj.userData.targetScale = obj.userData.baseScale * 0.62;
+          }
+        });
+      }
+    }
+
+    function animate3D() {
+      if (!is3DRunning) return;
+      animFrameId = requestAnimationFrame(animate3D);
+
+      const time = performance.now();
+      currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+      if (shapesGroup) {
+        shapesGroup.rotation.y = currentMouseX * 0.22;
+        shapesGroup.rotation.x = currentMouseY * 0.15;
+
+        shapesGroup.children.forEach((mesh) => {
+          mesh.rotation.x += mesh.userData.rotSpeedX;
+          mesh.rotation.y += mesh.userData.rotSpeedY;
+          mesh.position.y = mesh.userData.baseY + Math.sin(time * mesh.userData.floatSpeed + mesh.userData.floatOffset) * 1.35;
+          const currentS = mesh.scale.x;
+          const targetS = mesh.userData.targetScale || mesh.userData.baseScale;
+          mesh.scale.setScalar(currentS + (targetS - currentS) * 0.06);
+        });
+      }
+
+      if (particlesMesh) {
+        particlesMesh.rotation.y = time * 0.00008 + currentMouseX * 0.1;
+        particlesMesh.rotation.x = currentMouseY * 0.08;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    function toggle3DMotion() {
+      is3DRunning = !is3DRunning;
+      const btn = document.getElementById('toggle-3d-btn');
+      if (btn) btn.textContent = is3DRunning ? '✦ 3D: ON' : '✦ 3D: PAUSED';
+      if (is3DRunning) {
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animate3D();
+      } else if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+      }
+    }
+
+    // Restore saved theme if present
+    try {
+      const savedTheme = localStorage.getItem('nexus_theme');
+      const validTheme = paletteMap[savedTheme] ? savedTheme : 'purple';
+      document.body.setAttribute('data-theme', validTheme);
+      const ts = document.getElementById('theme-select');
+      if (ts) ts.value = validTheme;
+    } catch (e) {}
+
     // Initial render
     renderCategoriesBar();
     renderContent();
+    window.addEventListener('load', init3DBackground);
   </script>
 </body>
 </html>
