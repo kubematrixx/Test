@@ -3,22 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nexus // Streaming Directory</title>
+  <title>Multiplex // Streaming Directory</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
-    /* 1. Purple Theme (Default) */
+    /* 1. Gold Theme (Default on Top) */
     :root,
+    body[data-theme="gold"] {
+      --bg-base: #0b0702;
+      --bg-aura-1: rgba(245, 158, 11, 0.24);
+      --bg-aura-2: rgba(234, 88, 12, 0.18);
+      --bg-aura-3: rgba(250, 204, 21, 0.14);
+      --card-bg: rgba(28, 18, 6, 0.58);
+      --card-inner: rgba(22, 14, 5, 0.78);
+      --card-hover: rgba(42, 26, 9, 0.92);
+      --dropdown-bg: rgba(26, 16, 5, 0.96);
+      --dropdown-hover: rgba(245, 158, 11, 0.22);
+      --border: rgba(251, 191, 36, 0.25);
+      --border-glow: rgba(251, 191, 36, 0.55);
+      --accent-1: #fbbf24;
+      --accent-2: #ea580c;
+      --accent-3: #fde047;
+      --glow: rgba(245, 158, 11, 0.34);
+      --pill-bg: rgba(22, 14, 5, 0.72);
+      --pill-border: rgba(251, 191, 36, 0.45);
+      --text: #f8fafc;
+      --muted: #fde68a;
+    }
+
+    /* 2. Purple Theme */
     body[data-theme="purple"] {
       --bg-base: #070412;
       --bg-aura-1: rgba(168, 85, 247, 0.24);
       --bg-aura-2: rgba(217, 70, 239, 0.16);
       --bg-aura-3: rgba(129, 140, 248, 0.14);
       --card-bg: rgba(18, 12, 38, 0.58);
-      --card-inner: rgba(14, 10, 30, 0.75);
-      --card-hover: rgba(30, 20, 62, 0.9);
+      --card-inner: rgba(14, 10, 30, 0.78);
+      --card-hover: rgba(30, 20, 62, 0.92);
       --dropdown-bg: rgba(20, 11, 38, 0.96);
       --dropdown-hover: rgba(168, 85, 247, 0.22);
       --border: rgba(168, 85, 247, 0.25);
@@ -27,21 +50,21 @@
       --accent-2: #a855f7;
       --accent-3: #e879f9;
       --glow: rgba(168, 85, 247, 0.34);
-      --pill-bg: rgba(168, 85, 247, 0.15);
-      --pill-border: rgba(168, 85, 247, 0.38);
+      --pill-bg: rgba(14, 10, 30, 0.72);
+      --pill-border: rgba(192, 132, 252, 0.45);
       --text: #f8fafc;
       --muted: #c4b5fd;
     }
 
-    /* 2. Green Theme (Emerald & Neon Mint) */
+    /* 3. Green Theme */
     body[data-theme="green"] {
       --bg-base: #030b07;
       --bg-aura-1: rgba(16, 185, 129, 0.22);
       --bg-aura-2: rgba(52, 211, 153, 0.16);
       --bg-aura-3: rgba(163, 230, 53, 0.12);
       --card-bg: rgba(6, 24, 16, 0.58);
-      --card-inner: rgba(5, 19, 13, 0.76);
-      --card-hover: rgba(10, 38, 26, 0.9);
+      --card-inner: rgba(5, 19, 13, 0.78);
+      --card-hover: rgba(10, 38, 26, 0.92);
       --dropdown-bg: rgba(6, 22, 15, 0.96);
       --dropdown-hover: rgba(16, 185, 129, 0.22);
       --border: rgba(16, 185, 129, 0.25);
@@ -50,20 +73,20 @@
       --accent-2: #10b981;
       --accent-3: #a3e635;
       --glow: rgba(16, 185, 129, 0.32);
-      --pill-bg: rgba(16, 185, 129, 0.15);
-      --pill-border: rgba(52, 211, 153, 0.38);
+      --pill-bg: rgba(5, 19, 13, 0.72);
+      --pill-border: rgba(52, 211, 153, 0.45);
       --muted: #a7f3d0;
     }
 
-    /* 3. Red Theme (Crimson Ruby) */
+    /* 4. Red Theme */
     body[data-theme="red"] {
       --bg-base: #0c0305;
       --bg-aura-1: rgba(244, 63, 94, 0.24);
       --bg-aura-2: rgba(225, 29, 72, 0.18);
       --bg-aura-3: rgba(251, 113, 133, 0.12);
       --card-bg: rgba(30, 8, 14, 0.58);
-      --card-inner: rgba(24, 6, 11, 0.76);
-      --card-hover: rgba(46, 12, 22, 0.9);
+      --card-inner: rgba(24, 6, 11, 0.78);
+      --card-hover: rgba(46, 12, 22, 0.92);
       --dropdown-bg: rgba(28, 7, 13, 0.96);
       --dropdown-hover: rgba(244, 63, 94, 0.22);
       --border: rgba(244, 63, 94, 0.25);
@@ -72,20 +95,20 @@
       --accent-2: #e11d48;
       --accent-3: #fda4af;
       --glow: rgba(244, 63, 94, 0.34);
-      --pill-bg: rgba(244, 63, 94, 0.15);
-      --pill-border: rgba(244, 63, 94, 0.38);
+      --pill-bg: rgba(24, 6, 11, 0.72);
+      --pill-border: rgba(251, 113, 133, 0.45);
       --muted: #fecdd3;
     }
 
-    /* 4. Blue Theme (Electric Ocean & Cobalt) */
+    /* 5. Blue Theme */
     body[data-theme="blue"] {
       --bg-base: #020712;
       --bg-aura-1: rgba(56, 189, 248, 0.24);
       --bg-aura-2: rgba(37, 99, 235, 0.20);
       --bg-aura-3: rgba(6, 182, 212, 0.15);
       --card-bg: rgba(8, 18, 38, 0.58);
-      --card-inner: rgba(6, 14, 30, 0.76);
-      --card-hover: rgba(12, 28, 58, 0.9);
+      --card-inner: rgba(6, 14, 30, 0.78);
+      --card-hover: rgba(12, 28, 58, 0.92);
       --dropdown-bg: rgba(7, 16, 34, 0.96);
       --dropdown-hover: rgba(56, 189, 248, 0.22);
       --border: rgba(56, 189, 248, 0.25);
@@ -94,31 +117,9 @@
       --accent-2: #2563eb;
       --accent-3: #22d3ee;
       --glow: rgba(56, 189, 248, 0.32);
-      --pill-bg: rgba(56, 189, 248, 0.15);
-      --pill-border: rgba(56, 189, 248, 0.38);
+      --pill-bg: rgba(6, 14, 30, 0.72);
+      --pill-border: rgba(56, 189, 248, 0.45);
       --muted: #bae6fd;
-    }
-
-    /* 5. Gold Theme (Solar Amber & Honey Gold) */
-    body[data-theme="gold"] {
-      --bg-base: #0b0702;
-      --bg-aura-1: rgba(245, 158, 11, 0.22);
-      --bg-aura-2: rgba(234, 88, 12, 0.16);
-      --bg-aura-3: rgba(250, 204, 21, 0.12);
-      --card-bg: rgba(28, 18, 6, 0.58);
-      --card-inner: rgba(22, 14, 5, 0.76);
-      --card-hover: rgba(42, 26, 9, 0.9);
-      --dropdown-bg: rgba(26, 16, 5, 0.96);
-      --dropdown-hover: rgba(245, 158, 11, 0.22);
-      --border: rgba(251, 191, 36, 0.25);
-      --border-glow: rgba(251, 191, 36, 0.55);
-      --accent-1: #fbbf24;
-      --accent-2: #ea580c;
-      --accent-3: #fde047;
-      --glow: rgba(245, 158, 11, 0.32);
-      --pill-bg: rgba(245, 158, 11, 0.15);
-      --pill-border: rgba(251, 191, 36, 0.38);
-      --muted: #fde68a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -178,7 +179,8 @@
       border-radius: 999px;
       width: fit-content;
       max-width: 92vw;
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 18px var(--glow);
     }
     .adblock-notice a {
@@ -192,13 +194,14 @@
       color: var(--accent-3);
     }
 
-    /* Top Utility Bar */
+    /* Top Utility Bar (Wider Page Layout) */
     .top-utility-bar {
       position: relative;
       z-index: 1005;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0.85rem 1.5rem 0.5rem;
+      max-width: 1460px;
+      width: 94%;
+      margin: 0.8rem auto 0;
+      padding: 1.35rem 1rem 0.6rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -206,37 +209,90 @@
       gap: 0.85rem;
     }
 
-    /* Brand Identity */
+    /* Brand Identity - Positioned slightly lower */
     .brand-cluster {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 0.45rem;
+      transition: transform 0.25s ease;
+    }
+    .brand-cluster:hover {
+      transform: translateY(-1px);
     }
 
     .brand-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #ffffff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-      box-shadow: 0 0 20px var(--glow);
+      background: var(--card-inner);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 25px var(--glow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .brand-cluster:hover .brand-logo {
+      transform: scale(1.08) rotate(-2deg);
+      border-color: var(--accent-1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 35px var(--glow);
+    }
+
+    .logo-svg {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 8px var(--glow));
+    }
+
+    .brand-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
     }
 
     .brand-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
+      font-weight: 800;
+      font-size: 1.45rem;
       letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.55rem;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+      line-height: 1.15;
+    }
+
+    .brand-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 16%, transparent);
+      border: 1px solid var(--accent-1);
+      padding: 2px 7px;
+      border-radius: 6px;
+      box-shadow: 0 0 12px var(--glow);
+      -webkit-text-fill-color: var(--accent-1);
+      vertical-align: middle;
+    }
+
+    .brand-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      color: var(--muted);
+      opacity: 0.82;
     }
 
     .utility-controls {
@@ -266,6 +322,7 @@
       font-weight: 600;
       cursor: pointer;
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
       transition: all 0.25s ease;
     }
@@ -274,6 +331,35 @@
     .custom-dropdown.open .dropdown-trigger {
       border-color: var(--accent-1);
       box-shadow: 0 8px 25px var(--glow);
+    }
+
+    .toggle-3d-trigger {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--dropdown-bg);
+      border: 1px solid var(--pill-border);
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transition: all 0.25s ease;
+    }
+    .toggle-3d-trigger:hover {
+      border-color: var(--accent-1);
+      box-shadow: 0 8px 25px var(--glow);
+      transform: translateY(-1px);
+    }
+    .toggle-3d-trigger.paused {
+      color: var(--muted);
+      border-color: var(--border);
+      opacity: 0.82;
     }
 
     .dropdown-flag {
@@ -381,106 +467,124 @@
       -webkit-backdrop-filter: none;
       border-bottom: none;
       padding: 0.5rem 0;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
       pointer-events: none;
     }
 
     .header-inner {
-      max-width: 1200px;
+      max-width: 1460px;
+      width: 94%;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       display: flex;
       justify-content: center;
       pointer-events: auto;
     }
 
-    /* Floating Glass Category Navigation Tabs */
+    /* Floating Clean Category Navigation Tabs (No Big Black Box Behind) */
     .categories-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.55rem;
+      gap: 0.65rem;
       justify-content: center;
-      padding: 0.45rem 0.65rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      padding: 0.2rem 0.4rem;
+      background: transparent !important;
+      border: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
     }
     .cat-tab {
-      background: rgba(255, 255, 255, 0.04) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--pill-bg) !important;
+      border: 1px solid var(--pill-border);
       color: var(--text);
-      padding: 0.52rem 1.18rem;
+      padding: 0.5rem 1.12rem;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      backdrop-filter: blur(12px);
+      gap: 0.48rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .cat-tab span {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border);
       padding: 2px 8px;
       border-radius: 999px;
       font-size: 0.7rem;
       font-family: 'JetBrains Mono', monospace;
-      color: #ffffff;
+      color: var(--muted);
     }
     .cat-tab:hover {
       border-color: var(--accent-1);
       color: #ffffff;
-      background: color-mix(in srgb, var(--accent-1) 18%, transparent) !important;
+      background: color-mix(in srgb, var(--accent-1) 22%, transparent) !important;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px var(--glow);
     }
     .cat-tab.active {
       background: linear-gradient(135deg, var(--accent-1), var(--accent-2)) !important;
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: var(--border-glow);
       color: #ffffff;
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
       box-shadow: 0 0 26px var(--glow);
       transform: scale(1.04);
     }
     .cat-tab.active span {
-      background: rgba(255, 255, 255, 0.24);
+      background: rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.35);
       color: #ffffff;
     }
 
-    /* Main Container */
+    /* Main Container (Wider Page Layout) */
     main {
-      max-width: 1200px;
+      max-width: 1460px;
+      width: 94%;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       perspective: 1400px;
     }
 
     .section-card-wrapper {
       background: var(--card-bg);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 2.25rem;
+      border-radius: 26px;
+      padding: 1.85rem 2rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      margin-bottom: 2.25rem;
-      transform-style: preserve-3d;
-      transform: rotateX(8deg) translateY(30px) scale(0.97);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 28px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+      transform: translateY(22px) scale(0.985);
       opacity: 0;
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, border-color 0.3s ease, background 0.4s ease;
+      filter: blur(8px);
+      transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s ease, filter 0.38s ease, border-color 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .section-card-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background: radial-gradient(ellipse at 50% 0%, var(--bg-aura-1), transparent 75%);
+      pointer-events: none;
+      z-index: 0;
     }
     .section-card-wrapper:hover {
-      border-color: var(--pill-border);
+      border-color: var(--border-glow);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65), 0 0 40px var(--glow);
     }
     .section-card-wrapper.visible {
-      transform: rotateX(0deg) translateY(0) scale(1);
+      transform: translateY(0) scale(1);
       opacity: 1;
+      filter: blur(0px);
     }
 
     .banner-overlay {
@@ -501,58 +605,67 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 1.1rem;
+      padding-bottom: 0.95rem;
       gap: 1rem;
       flex-wrap: wrap;
     }
     .section-title-group {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.7rem;
     }
     .section-icon {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       filter: drop-shadow(0 0 12px var(--glow));
     }
     .section-header h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.95rem;
+      font-size: 1.75rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #ffffff 30%, var(--accent-1));
+      background: linear-gradient(135deg, #ffffff 35%, var(--accent-1));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-    .count-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      background: var(--pill-bg);
-      color: var(--accent-1);
-      border: 1px solid var(--pill-border);
-      padding: 5px 13px;
-      border-radius: 999px;
-      box-shadow: 0 0 15px var(--glow);
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
     }
 
-    /* Links Grid */
+    /* Frosted Blurred Count Pill ("24 available") for High Readability */
+    .count-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: var(--pill-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      color: var(--muted);
+      border: 1px solid var(--pill-border);
+      padding: 5px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 15px var(--glow);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+    }
+
+    /* Compact Links Grid */
     .grid {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 1.35rem;
-      padding-top: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 0.95rem;
+      padding-top: 0.25rem;
     }
 
-    /* Centered Link Card with True 3D Parallax Pop & Glare */
+    /* Compact Site Card with Blurred Glass Background & No Hover Link Tooltip */
     .link-card {
       position: relative;
       background: var(--card-inner);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 1.6rem 1.25rem;
+      border-radius: 18px;
+      padding: 1rem 0.85rem 1.15rem;
       color: var(--text);
       display: flex;
       flex-direction: column;
@@ -560,21 +673,34 @@
       text-align: center;
       justify-content: space-between;
       cursor: pointer;
-      overflow: visible;
+      overflow: hidden;
       transform-style: preserve-3d;
       transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 12px var(--glow);
       transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      animation: cardCascade 0.36s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    }
+
+    @keyframes cardCascade {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) translateY(16px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) translateY(0) scale(1);
+      }
     }
 
     .link-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in srgb, var(--accent-1) 24%, transparent), transparent 80%);
+      background: radial-gradient(circle 130px at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in srgb, var(--accent-1) 28%, transparent), transparent 80%);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
-      border-radius: 22px;
+      border-radius: 18px;
       z-index: 1;
     }
 
@@ -582,39 +708,10 @@
       opacity: 1;
     }
 
-    .link-card::after {
-      content: attr(data-url);
-      position: absolute;
-      top: 11px;
-      left: 50%;
-      transform: translateX(-50%) translateY(8px) scale(0.92) translateZ(30px);
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      color: #ffffff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.73rem;
-      font-weight: 800;
-      padding: 4px 13px;
-      border-radius: 999px;
-      pointer-events: none;
-      box-shadow: 0 8px 25px var(--glow);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 50;
-      white-space: nowrap;
-    }
-
-    .link-card:hover::after {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0) scale(1) translateZ(30px);
-    }
-
     .link-card:hover {
       border-color: var(--accent-1);
       background: var(--card-hover);
-      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55), 0 0 25px var(--glow);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), 0 0 26px var(--glow);
       z-index: 5;
     }
 
@@ -625,9 +722,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 26px;
-      margin-bottom: -4px;
-      transform: translateZ(16px);
+      min-height: 24px;
+      margin-bottom: -2px;
+      transform: translateZ(14px);
     }
 
     .card-content-center {
@@ -636,64 +733,68 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.55rem;
       width: 100%;
-      margin-top: 0.7rem;
-      transform: translateZ(26px);
+      margin-top: 0.35rem;
+      transform: translateZ(22px);
       transition: transform 0.3s ease;
     }
 
     .card-actions {
       display: flex;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
     .action-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--pill-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--pill-border);
       color: var(--muted);
-      width: 28px;
-      height: 28px;
-      border-radius: 9px;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .action-btn:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: var(--dropdown-hover);
       color: #fff;
       border-color: var(--accent-1);
+      box-shadow: 0 0 12px var(--glow);
       transform: scale(1.1);
     }
     .action-btn.fav-active {
-      color: #ff2a85;
-      border-color: rgba(255, 42, 133, 0.45);
-      background: rgba(255, 42, 133, 0.15);
-      box-shadow: 0 0 12px rgba(255, 42, 133, 0.35);
+      color: var(--accent-1);
+      border-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 22%, transparent);
+      box-shadow: 0 0 14px var(--glow);
     }
 
     .favicon {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       object-fit: contain;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--pill-bg);
+      padding: 5px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 8px var(--glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .link-card:hover .favicon {
       transform: scale(1.08);
-      box-shadow: 0 10px 24px var(--glow);
+      border-color: var(--accent-1);
+      box-shadow: 0 8px 20px var(--glow);
     }
 
     .site-name {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 0.98rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -703,22 +804,27 @@
 
     .badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.66rem;
+      font-size: 0.52rem;
       text-transform: uppercase;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.05em;
+      padding: 1.5px 5.5px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .badge.trusted {
-      background: color-mix(in srgb, var(--accent-3) 14%, transparent);
+      background: var(--pill-bg);
       color: var(--accent-3);
-      border: 1px solid color-mix(in srgb, var(--accent-3) 35%, transparent);
+      border: 1px solid var(--pill-border);
+      box-shadow: 0 0 8px var(--glow);
     }
     .badge.new {
-      background: rgba(56, 189, 248, 0.12);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--pill-bg);
+      color: var(--accent-1);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 0 8px var(--glow);
     }
 
     /* ================= IN-PAGE THEATER / PLAYER OVERLAY MODAL ================= */
@@ -745,7 +851,7 @@
 
     .player-window {
       width: 94vw;
-      max-width: 1380px;
+      max-width: 1440px;
       height: 88vh;
       background: var(--dropdown-bg);
       border: 1px solid var(--border-glow);
@@ -805,32 +911,6 @@
       white-space: nowrap;
     }
 
-    .player-domain-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent-1);
-      background: var(--pill-bg);
-      border: 1px solid var(--pill-border);
-      padding: 2px 9px;
-      border-radius: 999px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 260px;
-    }
-
-    .player-hint {
-      font-size: 0.74rem;
-      color: var(--muted);
-      opacity: 0.85;
-      display: none;
-    }
-    @media (min-width: 900px) {
-      .player-hint {
-        display: inline-block;
-      }
-    }
-
     .player-controls {
       display: flex;
       align-items: center;
@@ -858,12 +938,6 @@
       border-color: var(--accent-1);
       color: #ffffff;
       box-shadow: 0 0 14px var(--glow);
-    }
-
-    .player-btn.primary-tab-btn {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      border-color: rgba(255, 255, 255, 0.3);
-      color: #ffffff;
     }
 
     .player-btn.close-btn {
@@ -940,6 +1014,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -963,6 +1038,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px var(--glow);
       z-index: 6000;
       opacity: 0;
@@ -976,9 +1052,10 @@
 
     /* Footer DMCA */
     footer {
-      max-width: 1200px;
+      max-width: 1460px;
+      width: 94%;
       margin: 4.5rem auto 2rem;
-      padding: 2.25rem 1.5rem 0;
+      padding: 2.25rem 1rem 0;
       text-align: center;
       color: var(--muted);
       font-size: 0.82rem;
@@ -988,15 +1065,24 @@
     @media (max-width: 640px) {
       .top-utility-bar {
         justify-content: center;
+        width: 96%;
+      }
+      main {
+        width: 96%;
+        padding: 0 0.5rem;
       }
       .categories-bar {
         border-radius: 20px;
       }
       .section-card-wrapper {
-        padding: 1.5rem 1.15rem;
+        padding: 1.35rem 1rem;
       }
       .section-header h2 {
-        font-size: 1.55rem;
+        font-size: 1.45rem;
+      }
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+        gap: 0.75rem;
       }
       .player-modal-backdrop {
         padding: 0.4rem;
@@ -1008,7 +1094,7 @@
     }
   </style>
 </head>
-<body data-theme="purple">
+<body data-theme="gold">
 
   <!-- Interactive 3D Background Canvas -->
   <canvas id="bg-canvas"></canvas>
@@ -1020,17 +1106,46 @@
 
   <!-- Top Utility Bar -->
   <div class="top-utility-bar">
-    <div class="brand-cluster">
-      <div class="brand-logo">N</div>
-      <div class="brand-title">NEXUS</div>
+    <div class="brand-cluster" onclick="playClickSound(); switchCategory('All'); window.scrollTo({top: 0, behavior: 'smooth'});" title="Multiplex Homepage">
+      <div class="brand-logo" aria-label="Multiplex Logo">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+          <defs>
+            <linearGradient id="logo-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--accent-1)"/>
+              <stop offset="50%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="var(--accent-2)"/>
+            </linearGradient>
+            <linearGradient id="logo-m-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="50%" stop-color="var(--accent-1)"/>
+              <stop offset="100%" stop-color="var(--accent-2)"/>
+            </linearGradient>
+          </defs>
+          <rect x="2.5" y="2.5" width="35" height="35" rx="11" stroke="url(#logo-border-grad)" stroke-width="1.8" fill="rgba(10, 6, 2, 0.55)"/>
+          <path d="M10 28V12L20 21L30 12V28" stroke="url(#logo-m-grad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="17.5,18.5 22.5,21 17.5,23.5" fill="var(--accent-3)"/>
+          <circle cx="10" cy="12" r="1.8" fill="#ffffff"/>
+          <circle cx="30" cy="12" r="1.8" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="brand-text-group">
+        <div class="brand-title">MULTIPLEX</div>
+        <div class="brand-tagline">DIRECTORY</div>
+      </div>
     </div>
 
     <div class="utility-controls">
+      <!-- 3D Toggle Button (Left side of Theme Selection) -->
+      <button type="button" class="dropdown-trigger toggle-3d-trigger" id="toggle-3d-btn" onclick="playClickSound(); toggle3DMotion()" title="Toggle 3D Background Motion">
+        <span id="toggle-3d-icon" style="color:var(--accent-1); font-size:0.92rem;">✦</span>
+        <span id="toggle-3d-text">3D: ON</span>
+      </button>
+
       <!-- Custom Theme Dropdown -->
       <div class="custom-dropdown" id="theme-dropdown">
         <button type="button" class="dropdown-trigger" onclick="playClickSound(); toggleDropdown('theme-dropdown', event)">
-          <span class="theme-dot" id="current-theme-dot" style="background: #c084fc; color: #c084fc;"></span>
-          <span id="current-theme-name">Purple</span>
+          <span class="theme-dot" id="current-theme-dot" style="background: #fbbf24; color: #fbbf24;"></span>
+          <span id="current-theme-name">Gold</span>
           <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
@@ -1070,15 +1185,11 @@
         <div class="player-site-info">
           <img class="player-site-icon" id="player-site-icon" src="" alt="" />
           <span class="player-site-title" id="player-site-title">Site</span>
-          <span class="player-domain-pill" id="player-site-domain">domain.com</span>
         </div>
-
-        <span class="player-hint">If a site refuses to embed, click <b>Open Tab ↗</b></span>
 
         <div class="player-controls">
           <button type="button" class="player-btn" onclick="reloadPlayerFrame()" title="Reload Player">↻ Reload</button>
           <button type="button" class="player-btn" id="fullscreen-btn" onclick="togglePlayerFullscreen()" title="Expand / Fullscreen">⛶ Expand</button>
-          <button type="button" class="player-btn primary-tab-btn" onclick="openCurrentInNewTab()" title="Open in New Browser Tab">↗ Open Tab</button>
           <button type="button" class="player-btn close-btn" onclick="closePlayerModal()" title="Close Player (Esc)">✕ Close</button>
         </div>
       </div>
@@ -1092,20 +1203,18 @@
           src="about:blank"
           allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           allowfullscreen
-          referrerpolicy="no-referrer"
         ></iframe>
       </div>
     </div>
   </div>
 
-  <!-- Floating Scroll-to-Top & 3D Toggle Dock -->
+  <!-- Floating Scroll-to-Top Dock -->
   <div class="floating-dock">
-    <button class="dock-btn" id="toggle-3d-btn" onclick="playClickSound(); toggle3DMotion()">✦ 3D: ON</button>
-    <button class="dock-btn" onclick="playClickSound(); window.scrollTo({top: 0, behavior: 'smooth'})">↑ Top</button>
+    <button class="dock-btn" onclick="playClickSound(); window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to Top">↑ Top</button>
   </div>
 
   <!-- Toast Notification -->
-  <div class="toast" id="toast">Copied!</div>
+  <div class="toast" id="toast">Saved!</div>
 
   <footer>
     <p>DMCA Notice: This site does not host any files on its servers. All contents are provided by non-affiliated third parties.</p>
@@ -1176,11 +1285,11 @@
     ];
 
     const themesList = [
+      { id: "gold",   name: "Gold",   color: "#fbbf24" },
       { id: "purple", name: "Purple", color: "#c084fc" },
       { id: "green",  name: "Green",  color: "#34d399" },
       { id: "red",    name: "Red",    color: "#fb7185" },
-      { id: "blue",   name: "Blue",   color: "#38bdf8" },
-      { id: "gold",   name: "Gold",   color: "#fbbf24" }
+      { id: "blue",   name: "Blue",   color: "#38bdf8" }
     ];
 
     // Category Configuration
@@ -1229,325 +1338,284 @@
       }
     };
 
-    const sitesData = [
-      // ================= UNITED STATES (US) - MOVIES & SHOWS (24) =================
-      { name: "1Shows", url: "https://1shows.org", domain: "1shows.org", category: "Movies & Shows", badge: "trusted", countries: ["US"] },
-      { name: "1Flex", url: "https://1flex.org", domain: "1flex.org", category: "Movies & Shows", badge: "trusted", countries: ["US"] },
-      { name: "1Tube", url: "https://1tube.org", domain: "1tube.org", category: "Movies & Shows", badge: "trusted", countries: ["US"] },
-      { name: "MeowTV", url: "https://meowtv.ru", domain: "meowtv.ru", category: "Movies & Shows", badge: "trusted", countries: ["US"] },
-      { name: "CineLite", url: "https://cinelite.xyz", domain: "cinelite.xyz", category: "Movies & Shows", badge: "trusted", countries: ["US"] },
-      { name: "Rivo", url: "https://rivo.st", domain: "rivo.st", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "RiveStream", url: "https://rivestream.ru", domain: "rivestream.ru", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "FlickyStream", url: "https://flickystream.mov", domain: "flickystream.mov", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Cinema.army", url: "https://cinema.army", domain: "cinema.army", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "PrimeFlix", url: "https://primeflix.ru", domain: "primeflix.ru", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Nepu", url: "https://nepu.cc", domain: "nepu.cc", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "FlixGaze", url: "https://flixgaze.com", domain: "flixgaze.com", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "NetPlayz", url: "https://netplayz.top", domain: "netplayz.top", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "HollyMovieHD", url: "https://hollymoviehd.cc", domain: "hollymoviehd.cc", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "CineJoy", url: "https://cinejoy.pk", domain: "cinejoy.pk", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Movy", url: "https://movy.sx", domain: "movy.sx", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "CinemaCity", url: "https://cinemacity.cc", domain: "cinemacity.cc", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "OnlyFlix", url: "https://onlyflix.to", domain: "onlyflix.to", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Bingr", url: "https://bingr.one", domain: "bingr.one", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "PopcornMovies", url: "https://popcornmovies.ac", domain: "popcornmovies.ac", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "LookMovie2", url: "https://lookmovie2.to", domain: "lookmovie2.to", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Willow", url: "https://willow.arlen.icu", domain: "willow.arlen.icu", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "Atlantic", url: "https://atlantic.st", domain: "atlantic.st", category: "Movies & Shows", badge: "", countries: ["US"] },
-      { name: "StreamingUnity", url: "https://streamingunity.fun", domain: "streamingunity.fun", category: "Movies & Shows", badge: "", countries: ["US"] },
+        // ================= SITES DIRECTORY (COMPACT & EASY TO EDIT) =================
+    // Format: [Name, URL, Category, Badge ("" | "trusted" | "new"), [Country Codes]]
+    const sitesList = [
 
-      // ================= UNITED STATES (US) - ANIME (20) =================
-      { name: "ReAnime", url: "https://reanime.to", domain: "reanime.to", category: "Anime", badge: "trusted", countries: ["US"] },
-      { name: "Animepahe", url: "https://animepahe.pw/", domain: "animepahe.pw", category: "Anime", badge: "trusted", countries: ["US", "IN"] },
-      { name: "AnikotoTV", url: "https://anikototv.to", domain: "anikototv.to", category: "Anime", badge: "trusted", countries: ["US"] },
-      { name: "Enma", url: "https://enma.lol", domain: "enma.lol", category: "Anime", badge: "trusted", countries: ["US"] },
-      { name: "Miruro", url: "https://miruro.to", domain: "miruro.to", category: "Anime", badge: "trusted", countries: ["US"] },
-      { name: "Ani.pm", url: "https://ani.pm", domain: "ani.pm", category: "Anime", badge: "", countries: ["US"] },
-      { name: "Anime.nexus", url: "https://anime.nexus", domain: "anime.nexus", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniKage", url: "https://anikage.cc", domain: "anikage.cc", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniDap", url: "https://anidap.lol", domain: "anidap.lol", category: "Anime", badge: "", countries: ["US"] },
-      { name: "JJBA", url: "https://jjba.lol", domain: "jjba.lol", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniFlix", url: "https://aniflix.uno", domain: "aniflix.uno", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AnimeX", url: "https://animex.one", domain: "animex.one", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniStream", url: "https://anistream.one", domain: "anistream.one", category: "Anime", badge: "", countries: ["US"] },
-      { name: "KAA", url: "https://kaa.lt", domain: "kaa.lt", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniClover", url: "https://aniclover.cc", domain: "aniclover.cc", category: "Anime", badge: "", countries: ["US"] },
-      { name: "JustAnime", url: "https://justanime.to", domain: "justanime.to", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AniWaves", url: "https://aniwaves.ru", domain: "aniwaves.ru", category: "Anime", badge: "", countries: ["US"] },
-      { name: "AnimeHeaven", url: "https://animeheaven.me", domain: "animeheaven.me", category: "Anime", badge: "", countries: ["US"] },
-      { name: "Anitaku", url: "https://anitaku.io", domain: "anitaku.io", category: "Anime", badge: "", countries: ["US"] },
-      { name: "LunarX", url: "https://lunarx.to", domain: "lunarx.to", category: "Anime", badge: "", countries: ["US"] },
+      // --- Movies & Shows (105) ---
+      ["1Shows", "https://1shows.org", "Movies & Shows", "trusted", ["US"]],
+      ["1Flex", "https://1flex.org", "Movies & Shows", "trusted", ["US"]],
+      ["1Tube", "https://1tube.org", "Movies & Shows", "trusted", ["US"]],
+      ["MeowTV", "https://meowtv.ru", "Movies & Shows", "trusted", ["US"]],
+      ["CineLite", "https://cinelite.xyz", "Movies & Shows", "trusted", ["US"]],
+      ["Rivo", "https://rivo.st", "Movies & Shows", "", ["US"]],
+      ["RiveStream", "https://rivestream.ru", "Movies & Shows", "", ["US"]],
+      ["FlickyStream", "https://flickystream.mov", "Movies & Shows", "", ["US"]],
+      ["Cinema.army", "https://cinema.army", "Movies & Shows", "", ["US"]],
+      ["PrimeFlix", "https://primeflix.ru", "Movies & Shows", "", ["US"]],
+      ["Nepu", "https://nepu.cc", "Movies & Shows", "", ["US"]],
+      ["FlixGaze", "https://flixgaze.com", "Movies & Shows", "", ["US"]],
+      ["NetPlayz", "https://netplayz.top", "Movies & Shows", "", ["US"]],
+      ["HollyMovieHD", "https://hollymoviehd.cc", "Movies & Shows", "", ["US"]],
+      ["CineJoy", "https://cinejoy.pk", "Movies & Shows", "", ["US"]],
+      ["Movy", "https://movy.sx", "Movies & Shows", "", ["US"]],
+      ["CinemaCity", "https://cinemacity.cc", "Movies & Shows", "", ["US"]],
+      ["OnlyFlix", "https://onlyflix.to", "Movies & Shows", "", ["US"]],
+      ["Bingr", "https://bingr.one", "Movies & Shows", "", ["US"]],
+      ["PopcornMovies", "https://popcornmovies.ac", "Movies & Shows", "", ["US"]],
+      ["LookMovie2", "https://lookmovie2.to", "Movies & Shows", "", ["US"]],
+      ["Willow", "https://willow.arlen.icu", "Movies & Shows", "", ["US"]],
+      ["Atlantic", "https://atlantic.st", "Movies & Shows", "", ["US"]],
+      ["StreamingUnity", "https://streamingunity.fun", "Movies & Shows", "", ["US"]],
+      ["deepcine", "https://deepcine.tv/", "Movies & Shows", "", ["BR"]],
+      ["cinesouza", "https://cinesouza.online/", "Movies & Shows", "", ["BR"]],
+      ["EgyBest", "https://egybest.la/", "Movies & Shows", "", ["EG"]],
+      ["egydead", "https://tv10.egydead.live/", "Movies & Shows", "", ["EG"]],
+      ["Alooytv", "https://fitnur.com/", "Movies & Shows", "", ["EG", "IN"]],
+      ["akwam", "https://ak.sv/", "Movies & Shows", "", ["EG"]],
+      ["TopCinema", "https://web.topcinema.io/", "Movies & Shows", "new", ["EG"]],
+      ["WeCima", "https://wecima.cx/", "Movies & Shows", "new", ["EG"]],
+      ["DramaCafe", "https://ddramacafe-tv.casa/", "Movies & Shows", "new", ["EG"]],
+      ["movizlands", "https://ty.movizlands.com/", "Movies & Shows", "new", ["EG"]],
+      ["Shahid4u", "https://shaiid4u.net/", "Movies & Shows", "new", ["EG"]],
+      ["tv5mondeplus", "https://www.tv5mondeplus.com/", "Movies & Shows", "", ["FR"]],
+      ["yablom", "https://yablom.com/", "Movies & Shows", "", ["FR"]],
+      ["movix", "https://movix.cash/", "Movies & Shows", "", ["FR"]],
+      ["purstream", "https://purstream.wiki/", "Movies & Shows", "", ["FR"]],
+      ["bowdtv", "https://bowdtv.com/", "Movies & Shows", "", ["FR"]],
+      ["fexini", "https://miaw.tv/", "Movies & Shows", "", ["FR"]],
+      ["Tf1", "https://www.tf1.fr/", "Movies & Shows", "", ["FR"]],
+      ["flixium", "https://flixium.top/", "Movies & Shows", "", ["FR"]],
+      ["Fawesome", "https://fawesome.tv/category/82798/french", "Movies & Shows", "", ["FR"]],
+      ["Moflix", "https://moflix-stream.xyz/", "Movies & Shows", "", ["DE"]],
+      ["S.to", "https://serienstream.to/", "Movies & Shows", "", ["DE"]],
+      ["Netzkino", "https://www.netzkino.de/", "Movies & Shows", "", ["DE"]],
+      ["StreamKiste", "https://streamkiste.taxi/", "Movies & Shows", "", ["DE"]],
+      ["ZDF", "https://www.zdf.de/", "Movies & Shows", "", ["DE"]],
+      ["ARD Media", "https://www.ardmediathek.de/", "Movies & Shows", "", ["DE"]],
+      ["FilmPalast", "https://filmpalast.to/", "Movies & Shows", "", ["DE"]],
+      ["Kinox/Kinoz", "https://kinoz.to", "Movies & Shows", "new", ["DE"]],
+      ["BurningSeries", "https://burningseries.ac/", "Movies & Shows", "new", ["DE"]],
+      ["streamcloud", "https://streamcloud.date/streamcloud/", "Movies & Shows", "new", ["DE"]],
+      ["hdfilme", "https://hdfilme.ceo/", "Movies & Shows", "new", ["DE"]],
+      ["PRMOVIES", "https://prmovies.farm/", "Movies & Shows", "trusted", ["IN"]],
+      ["Desicinemas", "https://desicinemas.pk/", "Movies & Shows", "", ["IN"]],
+      ["Movies Bazar", "https://www.moviesbazar.su/", "Movies & Shows", "", ["IN"]],
+      ["Bollyflix", "https://bollyflix.photo/", "Movies & Shows", "", ["IN"]],
+      ["NETNINJA", "https://netnaija.film", "Movies & Shows", "", ["IN"]],
+      ["moviewala", "https://moviewala.tv/", "Movies & Shows", "", ["IN"]],
+      ["MovieRulz", "https://www.5movierulz.recipes/", "Movies & Shows", "", ["IN"]],
+      ["Vegamovies", "https://vegamovies.market/", "Movies & Shows", "", ["IN"]],
+      ["HINDILINKS4U", "https://hindilinks4u.cafe/", "Movies & Shows", "", ["IN"]],
+      ["Multi movies", "https://multimovies.wtf/", "Movies & Shows", "", ["IN"]],
+      ["KMMovies", "https://k1.kmmovies.cam/", "Movies & Shows", "", ["IN"]],
+      ["hdhub4u", "https://new8.hdhub4u.cl/", "Movies & Shows", "", ["IN"]],
+      ["movies4u", "https://movies4u.kg/", "Movies & Shows", "", ["IN"]],
+      ["moviesmod", "https://moviesmod.ai.in/", "Movies & Shows", "", ["IN"]],
+      ["world4u", "https://worldfree4u.forum/", "Movies & Shows", "", ["IN"]],
+      ["NetMirror", "https://net77.cc/home", "Movies & Shows", "new", ["IN", "ES"]],
+      ["TheNextplanet", "https://www.thenextplanet.surf/", "Movies & Shows", "", ["IN"]],
+      ["yupflix", "https://yupflix.com/", "Movies & Shows", "", ["IN"]],
+      ["1tamilblasters", "https://www.1tamilblasters.tech/", "Movies & Shows", "new", ["IN"]],
+      ["cinephile", "https://cinephile.live/", "Movies & Shows", "new", ["IN"]],
+      ["Cineblog01", "https://cineblog001.delivery/", "Movies & Shows", "", ["IT"]],
+      ["Altadefinizione", "https://summerlandfestival.it/", "Movies & Shows", "", ["IT"]],
+      ["streamingcommunityz", "https://streamingcommunityz.shiksha/", "Movies & Shows", "new", ["IT"]],
+      ["altadefinizionex", "https://altadefinizionex.life/", "Movies & Shows", "new", ["IT"]],
+      ["Kiss KH", "https://kisskh.do/", "Movies & Shows", "", ["JP", "KR"]],
+      ["Kurdsubtitle", "https://kurdsubtitle.net/", "Movies & Shows", "trusted", ["KRD"]],
+      ["Kurdcinama", "https://kurdcinama.com/", "Movies & Shows", "trusted", ["KRD"]],
+      ["Kurdfilm", "https://kurdfilm.krd/", "Movies & Shows", "", ["KRD"]],
+      ["Shafilm", "https://shafilm.vip/", "Movies & Shows", "", ["KRD"]],
+      ["Beenar", "https://beenar.net/", "Movies & Shows", "", ["KRD"]],
+      ["Filman", "https://filman.cc/", "Movies & Shows", "", ["PL"]],
+      ["CDA-HD", "https://cda-hd.cc", "Movies & Shows", "", ["PL"]],
+      ["Ekino", "https://ekino.ws/", "Movies & Shows", "", ["PL"]],
+      ["Obejrzyj", "https://obejrzyj.to/", "Movies & Shows", "", ["PL"]],
+      ["zaluknij", "https://zaluknij.cc/", "Movies & Shows", "", ["PL"]],
+      ["bajeczki24", "https://bajeczki24.pl/", "Movies & Shows", "", ["PL"]],
+      ["wareztuga", "https://wareztuga.io/", "Movies & Shows", "", ["PT"]],
+      ["REZKA", "https://rezka.ag/", "Movies & Shows", "new", ["RU"]],
+      ["Kinogo", "https://kinogo.ec", "Movies & Shows", "new", ["RU"]],
+      ["OnlyKDrama", "https://onlykdrama.top/", "Movies & Shows", "", ["KR"]],
+      ["Hidrama", "https://hidrama.to/", "Movies & Shows", "", ["KR"]],
+      ["goplay.su", "https://goplay.su", "Movies & Shows", "", ["KR"]],
+      ["tvwiki", "https://cokcok10.com/", "Movies & Shows", "", ["KR"]],
+      ["pinoymovieshub", "https://pinoymovieshub.win/", "Movies & Shows", "new", ["KR"]],
+      ["ivyflix", "https://www.ivyflix.com/", "Movies & Shows", "new", ["KR"]],
+      ["pelisplus21", "https://pelisplus21.lat/", "Movies & Shows", "", ["ES"]],
+      ["Movies", "https://inkapelis.cyou", "Movies & Shows", "", ["ES"]],
+      ["SoloLatino", "https://sololatino.net/", "Movies & Shows", "", ["ES"]],
+      ["GDriveLatino", "https://gdrivelatinohd.org/", "Movies & Shows", "", ["ES"]],
+      ["Felixlatam", "https://flixlatam.com/", "Movies & Shows", "new", ["ES"]],
 
-      // ================= UNITED STATES (US) - MANGA =================
-      { name: "MangaBall", url: "https://mangaball.com", domain: "mangaball.com", category: "Manga", badge: "trusted", countries: ["US"] },
-      { name: "Atsu", url: "https://atsu.moe", domain: "atsu.moe", category: "Manga", badge: "trusted", countries: ["US"] },
-      { name: "OniSaga", url: "https://onisaga.com", domain: "onisaga.com", category: "Manga", badge: "trusted", countries: ["US"] },
-      { name: "Kagane", url: "https://kagane.org", domain: "kagane.org", category: "Manga", badge: "", countries: ["US"] },
-      { name: "AquaReader", url: "https://aquareader.org", domain: "aquareader.org", category: "Manga", badge: "", countries: ["US"] },
-      { name: "ComicK", url: "https://comick.dev", domain: "comick.dev", category: "Manga", badge: "", countries: ["US"] },
-      { name: "Comix", url: "https://comix.to", domain: "comix.to", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaDot", url: "https://mangadot.net", domain: "mangadot.net", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaBuddy", url: "https://mangabuddy1.co.uk", domain: "mangabuddy1.co.uk", category: "Manga", badge: "", countries: ["US"] },
-      { name: "QToon", url: "https://qtoon.org", domain: "qtoon.org", category: "Manga", badge: "", countries: ["US"] },
-      { name: "SpecterScans", url: "https://specterscans.com", domain: "specterscans.com", category: "Manga", badge: "", countries: ["US"] },
-      { name: "Mangago", url: "https://mangago.me", domain: "mangago.me", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaFire", url: "https://mangafire.to/home", domain: "mangafire.to", category: "Manga", badge: "", countries: ["US", "JP", "KR"] },
-      { name: "AllManga", url: "https://allmanga.to", domain: "allmanga.to", category: "Manga", badge: "", countries: ["US"] },
-      { name: "Mangakakalot", url: "https://mangakakalot.gg", domain: "mangakakalot.gg", category: "Manga", badge: "", countries: ["US"] },
-      { name: "AsuraScans", url: "https://asurascans.com", domain: "asurascans.com", category: "Manga", badge: "", countries: ["US"] },
-      { name: "BatCave", url: "https://batcave.biz", domain: "batcave.biz", category: "Manga", badge: "", countries: ["US"] },
-      { name: "ReadComicsOnline", url: "https://readcomicsonline.ru", domain: "readcomicsonline.ru", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaHub", url: "https://mangahub.io", domain: "mangahub.io", category: "Manga", badge: "", countries: ["US"] },
-      { name: "WeebCentral", url: "https://weebcentral.com", domain: "weebcentral.com", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaKatana", url: "https://mangakatana.com", domain: "mangakatana.com", category: "Manga", badge: "", countries: ["US"] },
-      { name: "LikeManga", url: "https://likemanga.ink", domain: "likemanga.ink", category: "Manga", badge: "", countries: ["US"] },
-      { name: "MangaXO", url: "https://mangaxo.com", domain: "mangaxo.com", category: "Manga", badge: "", countries: ["US"] },
-      { name: "King of Shojo", url: "https://kingofshojo.com", domain: "kingofshojo.com", category: "Manga", badge: "new", countries: ["US", "JP", "KR"] },
+      // --- Anime (57) ---
+      ["ReAnime", "https://reanime.to", "Anime", "trusted", ["US"]],
+      ["Animepahe", "https://animepahe.pw/", "Anime", "trusted", ["US", "IN"]],
+      ["AnikotoTV", "https://anikototv.to", "Anime", "trusted", ["US"]],
+      ["Enma", "https://enma.lol", "Anime", "trusted", ["US"]],
+      ["Miruro", "https://miruro.to", "Anime", "trusted", ["US"]],
+      ["Ani.pm", "https://ani.pm", "Anime", "", ["US"]],
+      ["Anime.nexus", "https://anime.nexus", "Anime", "", ["US"]],
+      ["AniKage", "https://anikage.cc", "Anime", "", ["US"]],
+      ["AniDap", "https://anidap.lol", "Anime", "", ["US"]],
+      ["JJBA", "https://jjba.lol", "Anime", "", ["US"]],
+      ["AniFlix", "https://aniflix.uno", "Anime", "", ["US"]],
+      ["AnimeX", "https://animex.one", "Anime", "", ["US"]],
+      ["AniStream", "https://anistream.one", "Anime", "", ["US"]],
+      ["KAA", "https://kaa.lt", "Anime", "", ["US"]],
+      ["AniClover", "https://aniclover.cc", "Anime", "", ["US"]],
+      ["JustAnime", "https://justanime.to", "Anime", "", ["US"]],
+      ["AniWaves", "https://aniwaves.ru", "Anime", "", ["US"]],
+      ["AnimeHeaven", "https://animeheaven.me", "Anime", "", ["US"]],
+      ["Anitaku", "https://anitaku.io", "Anime", "", ["US"]],
+      ["LunarX", "https://lunarx.to", "Anime", "", ["US"]],
+      ["meusanimes", "https://meusanimes.blog/", "Anime", "", ["BR"]],
+      ["arabic-toons", "https://www.arabic-toons.com/", "Anime", "", ["EG"]],
+      ["spacepowerfan", "https://spacepowerfan.com/", "Anime", "", ["EG"]],
+      ["stardima-ir", "https://stardima-ir.cartoon.com.im/", "Anime", "", ["EG"]],
+      ["cartoony", "https://cartoony.net/", "Anime", "new", ["EG"]],
+      ["carateen", "https://carateen.tv/", "Anime", "new", ["EG"]],
+      ["animezid", "https://animezid.org/", "Anime", "new", ["EG"]],
+      ["VoirAnime", "https://voir-anime.to/", "Anime", "", ["FR"]],
+      ["VostFree", "https://vostfree.ws/", "Anime", "", ["FR"]],
+      ["Sekai", "https://sekai.one/?v=15", "Anime", "", ["FR"]],
+      ["MugiwaraNoStreaming", "https://www.mugiwara-no-streaming.com/", "Anime", "", ["FR"]],
+      ["Anime Sama", "https://anime-sama.to/", "Anime", "", ["FR"]],
+      ["Aniworld", "https://aniworld.to/", "Anime", "", ["DE"]],
+      ["Kartoonsme", "https://kartoons.to/", "Anime", "trusted", ["IN"]],
+      ["AG48 ANIME", "https://www.ag48anime.fun/", "Anime", "trusted", ["IN"]],
+      ["WatchAnimeWorld", "https://watchanimeworld.one/", "Anime", "trusted", ["IN"]],
+      ["AnimeJoker", "https://animejoker.com/", "Anime", "", ["IN"]],
+      ["blakiteanime", "https://www.subdubanime.site/", "Anime", "", ["IN"]],
+      ["Anime4u", "https://anime4u.site/", "Anime", "", ["IN"]],
+      ["AnimeDrive", "https://animedrive.me/", "Anime", "", ["IN"]],
+      ["ToonWorld4All", "https://toonworld4all.me/", "Anime", "", ["IN"]],
+      ["DesiDubAnime", "https://www.desidubanime.me/", "Anime", "new", ["IN"]],
+      ["Anime Lok", "https://animelok.cc/", "Anime", "", ["IN"]],
+      ["Anime Salt", "https://animesalt.cx/", "Anime", "", ["IN"]],
+      ["RARE TOONS INDIA", "https://www.rareanimes.mov/", "Anime", "", ["IN"]],
+      ["AnimeSogo", "https://animesogo.to/home", "Anime", "", ["IN"]],
+      ["animeunity", "https://www.animeunity.so", "Anime", "", ["IT"]],
+      ["animesaturn", "https://www.animesaturn.net/", "Anime", "new", ["IT"]],
+      ["Oglądaj Anime", "https://ogladajanime.pl", "Anime", "", ["PL"]],
+      ["docchi", "https://docchi.pl/", "Anime", "", ["PL"]],
+      ["Shinden", "https://shinden.pl/", "Anime", "", ["PL"]],
+      ["NaszeAnime", "https://naszeanime.pl/", "Anime", "new", ["PL"]],
+      ["animeav", "https://animeav1.com", "Anime", "", ["ES"]],
+      ["animeytx", "https://wwv.veranimes.net/", "Anime", "", ["ES"]],
+      ["anime ninja", "https://ver.animeonline.ninja/", "Anime", "", ["ES"]],
+      ["veranimeonline", "https://veranimeonline.co/", "Anime", "", ["ES"]],
+      ["animeflv", "https://vww.animeflv.one/", "Anime", "", ["ES"]],
 
-      // ================= UNITED STATES (US) - LIVE TV & SPORTS (18) =================
-      { name: "DaddyLive", url: "https://dlive.sx", domain: "dlive.sx", category: "Live TV & Sports", badge: "trusted", countries: ["US"] },
-      { name: "OnDemand", url: "https://ondemand.st", domain: "ondemand.st", category: "Live TV & Sports", badge: "trusted", countries: ["US"] },
-      { name: "Streamed", url: "https://streamed.pk", domain: "streamed.pk", category: "Live TV & Sports", badge: "trusted", countries: ["US"] },
-      { name: "Sport+", url: "https://en97.sportplus.watch", domain: "en97.sportplus.watch", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "TheTVApp", url: "https://thetvapp.plus", domain: "thetvapp.plus", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "NTV", url: "https://ntv.cx", domain: "ntv.cx", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "PublicIPTV", url: "https://publiciptv.com", domain: "publiciptv.com", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "StreamKing", url: "https://streamking.cx", domain: "streamking.cx", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "StreamEast", url: "https://streameast.cool", domain: "streameast.cool", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "SportSurge", url: "https://v2.sportsurge.net", domain: "v2.sportsurge.net", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "Famelack", url: "https://famelack.com", domain: "famelack.com", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "RiveStream", url: "https://rivestream.ru", domain: "rivestream.ru", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "SportsBite", url: "https://sportsbite.org", domain: "sportsbite.org", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "Stmify", url: "https://stmify.com", domain: "stmify.com", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "PPV.st", url: "https://ppv.st", domain: "ppv.st", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "GoalZen", url: "https://goalzen.site", domain: "goalzen.site", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "FifStream", url: "https://fifstream1.gt.tc", domain: "fifstream1.gt.tc", category: "Live TV & Sports", badge: "", countries: ["US"] },
-      { name: "FreeTVGarden", url: "https://freetvgarden.com", domain: "freetvgarden.com", category: "Live TV & Sports", badge: "", countries: ["US"] },
+      // --- Manga (36) ---
+      ["MangaBall", "https://mangaball.com", "Manga", "trusted", ["US"]],
+      ["Atsu", "https://atsu.moe", "Manga", "trusted", ["US"]],
+      ["OniSaga", "https://onisaga.com", "Manga", "trusted", ["US"]],
+      ["Kagane", "https://kagane.org", "Manga", "", ["US"]],
+      ["AquaReader", "https://aquareader.org", "Manga", "", ["US"]],
+      ["ComicK", "https://comick.dev", "Manga", "", ["US"]],
+      ["Comix", "https://comix.to", "Manga", "", ["US"]],
+      ["MangaDot", "https://mangadot.net", "Manga", "", ["US"]],
+      ["MangaBuddy", "https://mangabuddy1.co.uk", "Manga", "", ["US"]],
+      ["QToon", "https://qtoon.org", "Manga", "", ["US"]],
+      ["SpecterScans", "https://specterscans.com", "Manga", "", ["US"]],
+      ["Mangago", "https://mangago.me", "Manga", "", ["US"]],
+      ["MangaFire", "https://mangafire.to/home", "Manga", "", ["US", "JP", "KR"]],
+      ["AllManga", "https://allmanga.to", "Manga", "", ["US"]],
+      ["Mangakakalot", "https://mangakakalot.gg", "Manga", "", ["US"]],
+      ["AsuraScans", "https://asurascans.com", "Manga", "", ["US"]],
+      ["BatCave", "https://batcave.biz", "Manga", "", ["US"]],
+      ["ReadComicsOnline", "https://readcomicsonline.ru", "Manga", "", ["US"]],
+      ["MangaHub", "https://mangahub.io", "Manga", "", ["US"]],
+      ["WeebCentral", "https://weebcentral.com", "Manga", "", ["US"]],
+      ["MangaKatana", "https://mangakatana.com", "Manga", "", ["US"]],
+      ["LikeManga", "https://likemanga.ink", "Manga", "", ["US"]],
+      ["MangaXO", "https://mangaxo.com", "Manga", "", ["US"]],
+      ["King of Shojo", "https://kingofshojo.com", "Manga", "new", ["US", "JP", "KR"]],
+      ["mangalivre", "https://mangalivre.blog/", "Manga", "", ["BR"]],
+      ["Sushiscan", "https://sushiscan.net/", "Manga", "", ["FR"]],
+      ["Manga Scantrad", "https://manga-scantrad.io/", "Manga", "", ["FR"]],
+      ["Manga Origines", "https://mangas-origines.fr/", "Manga", "", ["FR"]],
+      ["Phenix Scans", "https://phenix-scans.co/", "Manga", "", ["FR"]],
+      ["Lelmanga", "https://www.lelmanga.com/", "Manga", "", ["FR"]],
+      ["Toomics", "https://toomics.com/de", "Manga", "", ["DE"]],
+      ["natomanga", "https://www.natomanga.com/", "Manga", "new", ["IN"]],
+      ["mangaworldmx", "https://www.mangaworld.mx/", "Manga", "", ["IT"]],
+      ["phoenixscans", "https://www.phoenixscans.com/", "Manga", "", ["IT"]],
+      ["Kurdsubtitle Manga", "https://kurdsubtitle.net/mangas", "Manga", "", ["KRD"]],
+      ["MangaVault", "https://mangavault.lat/", "Manga", "", ["ES"]],
 
-      // ================= OTHER REGIONS - MOVIES & SHOWS =================
-      { name: "deepcine", url: "https://deepcine.tv/", domain: "deepcine.tv", category: "Movies & Shows", badge: "", countries: ["BR"] },
-      { name: "cinesouza", url: "https://cinesouza.online/", domain: "cinesouza.online", category: "Movies & Shows", badge: "", countries: ["BR"] },
+      // --- Live TV & Sports (34) ---
+      ["DaddyLive", "https://dlive.sx", "Live TV & Sports", "trusted", ["US"]],
+      ["OnDemand", "https://ondemand.st", "Live TV & Sports", "trusted", ["US"]],
+      ["Streamed", "https://streamed.pk", "Live TV & Sports", "trusted", ["US"]],
+      ["Sport+", "https://en97.sportplus.watch", "Live TV & Sports", "", ["US"]],
+      ["TheTVApp", "https://thetvapp.plus", "Live TV & Sports", "", ["US"]],
+      ["NTV", "https://ntv.cx", "Live TV & Sports", "", ["US"]],
+      ["PublicIPTV", "https://publiciptv.com", "Live TV & Sports", "", ["US"]],
+      ["StreamKing", "https://streamking.cx", "Live TV & Sports", "", ["US"]],
+      ["StreamEast", "https://streameast.cool", "Live TV & Sports", "", ["US"]],
+      ["SportSurge", "https://v2.sportsurge.net", "Live TV & Sports", "", ["US", "FR"]],
+      ["Famelack", "https://famelack.com", "Live TV & Sports", "", ["US"]],
+      ["SportsBite", "https://sportsbite.org", "Live TV & Sports", "", ["US"]],
+      ["Stmify", "https://stmify.com", "Live TV & Sports", "", ["US"]],
+      ["PPV.st", "https://ppv.st", "Live TV & Sports", "", ["US"]],
+      ["GoalZen", "https://goalzen.site", "Live TV & Sports", "", ["US"]],
+      ["FifStream", "https://fifstream1.gt.tc", "Live TV & Sports", "", ["US"]],
+      ["FreeTVGarden", "https://freetvgarden.com", "Live TV & Sports", "", ["US"]],
+      ["minhatela", "https://minhatela.xyz/", "Live TV & Sports", "", ["BR"]],
+      ["ArabicTV Watch", "https://arabictvwatch.tv/", "Live TV & Sports", "", ["EG"]],
+      ["BeinSports", "https://www.beinsports.com/en-mena", "Live TV & Sports", "", ["EG"]],
+      ["ViaPlay", "https://viaplay.fi/urheilu", "Live TV & Sports", "", ["FI"]],
+      ["Arte TV", "https://www.arte.tv/en/", "Live TV & Sports", "", ["FR"]],
+      ["Sportschau", "https://www.sportschau.de/", "Live TV & Sports", "", ["DE"]],
+      ["golvar", "https://golvar559.sbs/", "Live TV & Sports", "", ["DE"]],
+      ["3Sat", "https://www.3sat.de/programm", "Live TV & Sports", "", ["DE"]],
+      ["VIPBox", "https://vipbox1.com/", "Live TV & Sports", "", ["DE"]],
+      ["Taranga Plus", "https://tarangplus.in/", "Live TV & Sports", "", ["IN"]],
+      ["DAZN", "https://www.dazn.com", "Live TV & Sports", "new", ["IT"]],
+      ["unextjp", "https://video.unext.jp/", "Live TV & Sports", "", ["JP"]],
+      ["espnl", "https://www.espn.nl/watch/", "Live TV & Sports", "", ["NL"]],
+      ["TV.Eddit.Me", "https://tv.eddit.me/", "Live TV & Sports", "", ["PL"]],
+      ["FreeStream-live1h", "https://freestreams-live1i.pk/", "Live TV & Sports", "", ["PL"]],
+      ["FutbolLibre", "https://futbol-libres.su/", "Live TV & Sports", "new", ["ES"]],
+      ["RojaDirecta", "https://rojadirectastream.com/", "Live TV & Sports", "new", ["ES"]],
 
-      { name: "EgyBest", url: "https://egybest.la/", domain: "egybest.la", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "egydead", url: "https://tv10.egydead.live/", domain: "tv10.egydead.live", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "Alooytv", url: "https://fitnur.com/", domain: "fitnur.com", category: "Movies & Shows", badge: "", countries: ["EG", "IN"] },
-      { name: "akwam", url: "https://ak.sv/", domain: "ak.sv", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "arabic-toons", url: "https://www.arabic-toons.com/", domain: "arabic-toons.com", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "stardima-ir", url: "https://stardima-ir.cartoon.com.im/", domain: "stardima-ir.cartoon.com.im", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "cartoony", url: "https://cartoony.net/", domain: "cartoony.net", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "carateen", url: "https://carateen.tv/", domain: "carateen.tv", category: "Movies & Shows", badge: "", countries: ["EG"] },
-      { name: "carateen", url: "https://web.topcinema.io/", domain: "web.topcinema.io", category: "Movies & Shows", badge: "new", countries: ["EG"] },
-      { name: "WeCima", url: "https://wecima.cx/", domain: "wecima.cx", category: "Movies & Shows", badge: "new", countries: ["EG"] },
-      { name: "DramaCafe", url: "https://ddramacafe-tv.casa/", domain: "ddramacafe-tv.casa", category: "Movies & Shows", badge: "new", countries: ["EG"] },
-      { name: "movizlands", url: "https://ty.movizlands.com/", domain: "ty.movizlands.com", category: "Movies & Shows", badge: "new", countries: ["EG"] },
-      { name: "Shahid4u", url: "https://shaiid4u.net/", domain: "shaiid4u.net", category: "Movies & Shows", badge: "new", countries: ["EG"] },
-
-      { name: "tv5mondeplus", url: "https://www.tv5mondeplus.com/", domain: "tv5mondeplus.com", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "yablom", url: "https://yablom.com/", domain: "yablom.com", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "movix", url: "https://movix.cash/", domain: "movix.cash", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "purstream", url: "https://purstream.wiki/", domain: "purstream.wiki", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "bowdtv", url: "https://bowdtv.com/", domain: "bowdtv.com", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "fexini", url: "https://miaw.tv/", domain: "miaw.tv", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "Tf1", url: "https://www.tf1.fr/", domain: "tf1.fr", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "flixium", url: "https://flixium.top/", domain: "flixium.top", category: "Movies & Shows", badge: "", countries: ["FR"] },
-      { name: "Fawesome", url: "https://fawesome.tv/category/82798/french", domain: "fawesome.tv", category: "Movies & Shows", badge: "", countries: ["FR"] },
-
-      { name: "Moflix", url: "https://moflix-stream.xyz/", domain: "moflix-stream.xyz", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "S.to", url: "https://serienstream.to/", domain: "serienstream.to", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "Netzkino", url: "https://www.netzkino.de/", domain: "netzkino.de", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "StreamKiste", url: "https://streamkiste.taxi/", domain: "streamkiste.taxi", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "ZDF", url: "https://www.zdf.de/", domain: "zdf.de", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "ARD Media", url: "https://www.ardmediathek.de/", domain: "ardmediathek.de", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "FilmPalast", url: "https://filmpalast.to/", domain: "filmpalast.to", category: "Movies & Shows", badge: "", countries: ["DE"] },
-      { name: "Kinox/Kinoz", url: "https://kinoz.to", domain: "kinoz.to", category: "Movies & Shows", badge: "new", countries: ["DE"] },
-      { name: "BurningSeries", url: "https://burningseries.ac/", domain: "burningseries.ac", category: "Movies & Shows", badge: "new", countries: ["DE"] },
-      { name: "streamcloud", url: "https://streamcloud.date/streamcloud/", domain: "streamcloud.date", category: "Movies & Shows", badge: "new", countries: ["DE"] },
-      { name: "hdfilme", url: "https://hdfilme.ceo/", domain: "hdfilme.ceo", category: "Movies & Shows", badge: "new", countries: ["DE"] },
-
-      { name: "PRMOVIES", url: "https://prmovies.farm/", domain: "prmovies.farm", category: "Movies & Shows", badge: "trusted", countries: ["IN"] },
-      { name: "Desicinemas", url: "https://desicinemas.pk/", domain: "desicinemas.pk", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "Movies Bazar", url: "https://www.moviesbazar.su/", domain: "moviesbazar.su", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "Bollyflix", url: "https://bollyflix.photo/", domain: "bollyflix.photo", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "NETNINJA", url: "https://netnaija.film", domain: "netnaija.film", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "moviewala", url: "https://moviewala.tv/", domain: "moviewala.tv", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "MovieRulz", url: "https://www.5movierulz.recipes/", domain: "5movierulz.recipes", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "Vegamovies", url: "https://vegamovies.market/", domain: "vegamovies.market", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "HINDILINKS4U", url: "https://hindilinks4u.cafe/", domain: "hindilinks4u.cafe", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "Multi movies", url: "https://multimovies.wtf/", domain: "multimovies.wtf", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "KMMovies", url: "https://k1.kmmovies.cam/", domain: "k1.kmmovies.cam", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "hdhub4u", url: "https://new8.hdhub4u.cl/", domain: "new8.hdhub4u.cl", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "movies4u", url: "https://movies4u.kg/", domain: "movies4u.kg", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "moviesmod", url: "https://moviesmod.ai.in/", domain: "moviesmod.ai.in", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "world4u", url: "https://worldfree4u.forum/", domain: "worldfree4u.forum", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "NetMirror", url: "https://net77.cc/home", domain: "net77.cc", category: "Movies & Shows", badge: "new", countries: ["IN", "ES"] },
-      { name: "TheNextplanet", url: "https://www.thenextplanet.surf/", domain: "thenextplanet.surf", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "yupflix", url: "https://yupflix.com/", domain: "yupflix.com", category: "Movies & Shows", badge: "", countries: ["IN"] },
-      { name: "1tamilblasters", url: "https://www.1tamilblasters.tech/", domain: "1tamilblasters.tech", category: "Movies & Shows", badge: "new", countries: ["IN"] },
-      { name: "cinephile", url: "https://cinephile.live/", domain: "cinephile.live", category: "Movies & Shows", badge: "new", countries: ["IN"] },
-
-      { name: "Cineblog01", url: "https://cineblog001.delivery/", domain: "cineblog001.delivery", category: "Movies & Shows", badge: "", countries: ["IT"] },
-      { name: "Altadefinizione", url: "https://summerlandfestival.it/", domain: "summerlandfestival.it", category: "Movies & Shows", badge: "", countries: ["IT"] },
-      { name: "streamingcommunityz", url: "https://streamingcommunityz.shiksha/", domain: "streamingcommunityz.shiksha", category: "Movies & Shows", badge: "new", countries: ["IT"] },
-      { name: "altadefinizionex", url: "https://altadefinizionex.life/", domain: "altadefinizionex.life", category: "Movies & Shows", badge: "new", countries: ["IT"] },
-
-      { name: "Kiss KH", url: "https://kisskh.do/", domain: "kisskh.do", category: "Movies & Shows", badge: "", countries: ["JP", "KR"] },
-
-      { name: "Kurdsubtitle", url: "https://kurdsubtitle.net/", domain: "kurdsubtitle.net", category: "Movies & Shows", badge: "trusted", countries: ["KRD"] },
-      { name: "Kurdcinama", url: "https://kurdcinama.com/", domain: "kurdcinama.com", category: "Movies & Shows", badge: "trusted", countries: ["KRD"] },
-      { name: "Kurdfilm", url: "https://kurdfilm.krd/", domain: "kurdfilm.krd", category: "Movies & Shows", badge: "", countries: ["KRD"] },
-      { name: "Shafilm", url: "https://shafilm.vip/", domain: "shafilm.vip", category: "Movies & Shows", badge: "", countries: ["KRD"] },
-      { name: "Beenar", url: "https://beenar.net/", domain: "beenar.net", category: "Movies & Shows", badge: "", countries: ["KRD"] },
-
-      { name: "Filman", url: "https://filman.cc/", domain: "filman.cc", category: "Movies & Shows", badge: "", countries: ["PL"] },
-      { name: "CDA-HD", url: "https://cda-hd.cc", domain: "cda-hd.cc", category: "Movies & Shows", badge: "", countries: ["PL"] },
-      { name: "Ekino", url: "https://ekino.ws/", domain: "ekino.ws", category: "Movies & Shows", badge: "", countries: ["PL"] },
-      { name: "Obejrzyj", url: "https://obejrzyj.to/", domain: "obejrzyj.to", category: "Movies & Shows", badge: "", countries: ["PL"] },
-      { name: "zaluknij", url: "https://zaluknij.cc/", domain: "zaluknij.cc", category: "Movies & Shows", badge: "", countries: ["PL"] },
-      { name: "bajeczki24", url: "https://bajeczki24.pl/", domain: "bajeczki24.pl", category: "Movies & Shows", badge: "", countries: ["PL"] },
-
-      { name: "wareztuga", url: "https://wareztuga.io/", domain: "wareztuga.io", category: "Movies & Shows", badge: "", countries: ["PT"] },
-
-      { name: "REZKA", url: "https://rezka.ag/", domain: "rezka.ag", category: "Movies & Shows", badge: "new", countries: ["RU"] },
-      { name: "Kinogo", url: "https://kinogo.ec", domain: "kinogo.ec", category: "Movies & Shows", badge: "new", countries: ["RU"] },
-
-      { name: "OnlyKDrama", url: "https://onlykdrama.top/", domain: "onlykdrama.top", category: "Movies & Shows", badge: "", countries: ["KR"] },
-      { name: "Hidrama", url: "https://hidrama.to/", domain: "hidrama.to", category: "Movies & Shows", badge: "", countries: ["KR"] },
-      { name: "goplay.su", url: "https://goplay.su", domain: "goplay.su", category: "Movies & Shows", badge: "", countries: ["KR"] },
-      { name: "tvwiki", url: "https://cokcok10.com/", domain: "cokcok10.com", category: "Movies & Shows", badge: "", countries: ["KR"] },
-      { name: "pinoymovieshub", url: "https://pinoymovieshub.win/", domain: "pinoymovieshub.win", category: "Movies & Shows", badge: "new", countries: ["KR"] },
-      { name: "ivyflix", url: "https://www.ivyflix.com/", domain: "ivyflix.com", category: "Movies & Shows", badge: "new", countries: ["KR"] },
-
-      { name: "pelisplus21", url: "https://pelisplus21.lat/", domain: "pelisplus21.lat", category: "Movies & Shows", badge: "", countries: ["ES"] },
-      { name: "Movies", url: "https://inkapelis.cyou", domain: "inkapelis.cyou", category: "Movies & Shows", badge: "", countries: ["ES"] },
-      { name: "SoloLatino", url: "https://sololatino.net/", domain: "sololatino.net", category: "Movies & Shows", badge: "", countries: ["ES"] },
-      { name: "GDriveLatino", url: "https://gdrivelatinohd.org/", domain: "gdrivelatinohd.org", category: "Movies & Shows", badge: "", countries: ["ES"] },
-      { name: "Felixlatam", url: "https://flixlatam.com/", domain: "flixlatam.com", category: "Movies & Shows", badge: "new", countries: ["ES"] },
-
-      // ================= OTHER REGIONS - ANIME =================
-      { name: "meusanimes", url: "https://meusanimes.blog/", domain: "meusanimes.blog", category: "Anime", badge: "", countries: ["BR"] },
-
-      { name: "arabic-toons", url: "https://www.arabic-toons.com/", domain: "arabic-toons.com", category: "Anime", badge: "", countries: ["EG"] },
-      { name: "spacepowerfan", url: "https://spacepowerfan.com/", domain: "spacepowerfan.com", category: "Anime", badge: "", countries: ["EG"] },
-      { name: "stardima-ir", url: "https://stardima-ir.cartoon.com.im/", domain: "stardima-ir.cartoon.com.im", category: "Anime", badge: "", countries: ["EG"] },
-      { name: "cartoony", url: "https://cartoony.net/", domain: "cartoony.net", category: "Anime", badge: "new", countries: ["EG"] },
-      { name: "carateen", url: "https://carateen.tv/", domain: "carateen.tv", category: "Anime", badge: "new", countries: ["EG"] },
-      { name: "animezid", url: "https://animezid.org/", domain: "animezid.org", category: "Anime", badge: "new", countries: ["EG"] },
-
-      { name: "VoirAnime", url: "https://voir-anime.to/", domain: "voir-anime.to", category: "Anime", badge: "", countries: ["FR"] },
-      { name: "AnimesUltra", url: "https://v2.sportsurge.net/", domain: "v2.sportsurge.net", category: "Anime", badge: "", countries: ["FR"] },
-      { name: "VostFree", url: "https://vostfree.ws/", domain: "vostfree.ws", category: "Anime", badge: "", countries: ["FR"] },
-      { name: "Sekai", url: "https://sekai.one/?v=15", domain: "sekai.one", category: "Anime", badge: "", countries: ["FR"] },
-      { name: "MugiwaraNoStreaming", url: "https://www.mugiwara-no-streaming.com/", domain: "mugiwara-no-streaming.com", category: "Anime", badge: "", countries: ["FR"] },
-      { name: "Anime Sama", url: "https://anime-sama.to/", domain: "anime-sama.to", category: "Anime", badge: "", countries: ["FR"] },
-
-      { name: "Aniworld", url: "https://aniworld.to/", domain: "aniworld.to", category: "Anime", badge: "", countries: ["DE"] },
-
-      { name: "Kartoonsme", url: "https://kartoons.to/", domain: "kartoons.to", category: "Anime", badge: "trusted", countries: ["IN"] },
-      { name: "AG48 ANIME", url: "https://www.ag48anime.fun/", domain: "ag48anime.fun", category: "Anime", badge: "trusted", countries: ["IN"] },
-      { name: "WatchAnimeWorld", url: "https://watchanimeworld.one/", domain: "watchanimeworld.one", category: "Anime", badge: "trusted", countries: ["IN"] },
-      { name: "AnimeJoker", url: "https://animejoker.com/", domain: "animejoker.com", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "blakiteanime", url: "https://www.subdubanime.site/", domain: "subdubanime.site", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "Anime4u", url: "https://anime4u.site/", domain: "anime4u.site", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "AnimeDrive", url: "https://animedrive.me/", domain: "animedrive.me", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "ToonWorld4All", url: "https://toonworld4all.me/", domain: "toonworld4all.me", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "DesiDubAnime", url: "https://www.desidubanime.me/", domain: "desidubanime.me", category: "Anime", badge: "new", countries: ["IN"] },
-      { name: "Anime Lok", url: "https://animelok.cc/", domain: "animelok.cc", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "Anime Salt", url: "https://animesalt.cx/", domain: "animesalt.cx", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "RARE TOONS INDIA", url: "https://www.rareanimes.mov/", domain: "rareanimes.mov", category: "Anime", badge: "", countries: ["IN"] },
-      { name: "AnimeSogo", url: "https://animesogo.to/home", domain: "animesogo.to", category: "Anime", badge: "", countries: ["IN"] },
-
-      { name: "animeunity", url: "https://www.animeunity.so", domain: "animeunity.so", category: "Anime", badge: "", countries: ["IT"] },
-      { name: "animesaturn", url: "https://www.animesaturn.net/", domain: "animesaturn.net", category: "Anime", badge: "new", countries: ["IT"] },
-
-      { name: "Kiss KH", url: "https://kisskh.do/", domain: "kisskh.do", category: "Anime", badge: "", countries: ["JP", "KR"] },
-
-      { name: "Oglądaj Anime", url: "https://ogladajanime.pl", domain: "ogladajanime.pl", category: "Anime", badge: "", countries: ["PL"] },
-      { name: "docchi", url: "https://docchi.pl/", domain: "docchi.pl", category: "Anime", badge: "", countries: ["PL"] },
-      { name: "Shinden", url: "https://shinden.pl/", domain: "shinden.pl", category: "Anime", badge: "", countries: ["PL"] },
-      { name: "NaszeAnime", url: "https://naszeanime.pl/", domain: "naszeanime.pl", category: "Anime", badge: "new", countries: ["PL"] },
-
-      { name: "animeav", url: "https://animeav1.com", domain: "animeav1.com", category: "Anime", badge: "", countries: ["ES"] },
-      { name: "animeytx", url: "https://wwv.veranimes.net/", domain: "wwv.veranimes.net", category: "Anime", badge: "", countries: ["ES"] },
-      { name: "anime ninja", url: "https://ver.animeonline.ninja/", domain: "ver.animeonline.ninja", category: "Anime", badge: "", countries: ["ES"] },
-      { name: "veranimeonline", url: "https://veranimeonline.co/", domain: "veranimeonline.co", category: "Anime", badge: "", countries: ["ES"] },
-      { name: "animeflv", url: "https://vww.animeflv.one/", domain: "vww.animeflv.one", category: "Anime", badge: "", countries: ["ES"] },
-
-      // ================= OTHER REGIONS - MANGA =================
-      { name: "mangalivre", url: "https://mangalivre.blog/", domain: "mangalivre.blog", category: "Manga", badge: "", countries: ["BR"] },
-
-      { name: "Sushiscan", url: "https://sushiscan.net/", domain: "sushiscan.net", category: "Manga", badge: "", countries: ["FR"] },
-      { name: "Manga Scantrad", url: "https://manga-scantrad.io/", domain: "manga-scantrad.io", category: "Manga", badge: "", countries: ["FR"] },
-      { name: "Manga Origines", url: "https://mangas-origines.fr/", domain: "mangas-origines.fr", category: "Manga", badge: "", countries: ["FR"] },
-      { name: "Phenix Scans", url: "https://phenix-scans.co/", domain: "phenix-scans.co", category: "Manga", badge: "", countries: ["FR"] },
-      { name: "Lelmanga", url: "https://www.lelmanga.com/", domain: "lelmanga.com", category: "Manga", badge: "", countries: ["FR"] },
-
-      { name: "Toomics", url: "https://toomics.com/de", domain: "toomics.com", category: "Manga", badge: "", countries: ["DE"] },
-
-      { name: "natomanga", url: "https://www.natomanga.com/", domain: "natomanga.com", category: "Manga", badge: "new", countries: ["IN"] },
-
-      { name: "mangaworldmx", url: "https://www.mangaworld.mx/", domain: "mangaworld.mx", category: "Manga", badge: "", countries: ["IT"] },
-      { name: "phoenixscans", url: "https://www.phoenixscans.com/", domain: "phoenixscans.com", category: "Manga", badge: "", countries: ["IT"] },
-
-      { name: "Kurdsubtitle", url: "https://kurdsubtitle.net/mangas", domain: "kurdsubtitle.net", category: "Manga", badge: "", countries: ["KRD"] },
-
-      { name: "Shinden", url: "https://shinden.pl/", domain: "shinden.pl", category: "Manga", badge: "new", countries: ["PL"] },
-
-      { name: "MangaVault", url: "https://mangavault.lat/", domain: "mangavault.lat", category: "Manga", badge: "", countries: ["ES"] },
-
-      // ================= OTHER REGIONS - LIVE TV & SPORTS =================
-      { name: "minhatela", url: "https://minhatela.xyz/", domain: "minhatela.xyz", category: "Live TV & Sports", badge: "", countries: ["BR"] },
-
-      { name: "ArabicTV Watch", url: "https://arabictvwatch.tv/", domain: "arabictvwatch.tv", category: "Live TV & Sports", badge: "", countries: ["EG"] },
-      { name: "BeinSports", url: "https://www.beinsports.com/en-mena", domain: "beinsports.com", category: "Live TV & Sports", badge: "", countries: ["EG"] },
-
-      { name: "ViaPlay", url: "https://viaplay.fi/urheilu", domain: "viaplay.fi", category: "Live TV & Sports", badge: "", countries: ["FI"] },
-
-      { name: "Arte TV", url: "https://www.arte.tv/en/", domain: "arte.tv", category: "Live TV & Sports", badge: "", countries: ["FR"] },
-      { name: "flixium", url: "https://flixium.top/", domain: "flixium.top", category: "Live TV & Sports", badge: "", countries: ["FR"] },
-
-      { name: "Sportschau", url: "https://www.sportschau.de/", domain: "sportschau.de", category: "Live TV & Sports", badge: "", countries: ["DE"] },
-      { name: "golvar", url: "https://golvar559.sbs/", domain: "golvar559.sbs", category: "Live TV & Sports", badge: "", countries: ["DE"] },
-      { name: "3Sat", url: "https://www.3sat.de/programm", domain: "3sat.de", category: "Live TV & Sports", badge: "", countries: ["DE"] },
-      { name: "VIPBox", url: "https://vipbox1.com/", domain: "vipbox1.com", category: "Live TV & Sports", badge: "", countries: ["DE"] },
-
-      { name: "Taranga Plus", url: "https://tarangplus.in/", domain: "tarangplus.in", category: "Live TV & Sports", badge: "", countries: ["IN"] },
-
-      { name: "DAZN", url: "https://www.dazn.com", domain: "dazn.com", category: "Live TV & Sports", badge: "new", countries: ["IT"] },
-
-      { name: "unextjp", url: "https://video.unext.jp/", domain: "video.unext.jp", category: "Live TV & Sports", badge: "", countries: ["JP"] },
-
-      { name: "espnl", url: "https://www.espn.nl/watch/", domain: "espn.nl", category: "Live TV & Sports", badge: "", countries: ["NL"] },
-
-      { name: "TV.Eddit.Me", url: "https://tv.eddit.me/", domain: "tv.eddit.me", category: "Live TV & Sports", badge: "", countries: ["PL"] },
-      { name: "FreeStream-live1h", url: "https://freestreams-live1i.pk/", domain: "freestreams-live1i.pk", category: "Live TV & Sports", badge: "", countries: ["PL"] },
-
-      { name: "FutbolLibre", url: "https://futbol-libres.su/", domain: "futbol-libres.su", category: "Live TV & Sports", badge: "new", countries: ["ES"] },
-      { name: "RojaDirecta", url: "https://rojadirectastream.com/", domain: "rojadirectastream.com", category: "Live TV & Sports", badge: "new", countries: ["ES"] },
-
-      // ================= APPS (US + ALL REGIONS) =================
-      { name: "Playtorrio", url: "https://playtorrio.pages.dev/", domain: "playtorrio.pages.dev", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "BeeTV", url: "https://beetvs.com.co/", domain: "beetvs.com.co", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "HDO Box", url: "https://hdobox.net/", domain: "hdobox.net", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "MovieBox", url: "https://www.moviesbox.com.co/home/", domain: "moviesbox.com.co", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "NetMirror", url: "https://netmirror.gg/2/en", domain: "netmirror.gg", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "PikaShow", url: "https://pikashowtv.in/", domain: "pikashowtv.in", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "MobiFlix", url: "https://mobiflix.net", domain: "mobiflix.net", category: "Apps", badge: "", countries: ["US"] },
-      { name: "YouCine", url: "https://youcineapkpro.com/", domain: "youcineapkpro.com", category: "Apps", badge: "new", countries: ["US", "IN"] },
-      { name: "PlayFy", url: "https://playfy.live/", domain: "playfy.live", category: "Apps", badge: "", countries: ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"] },
-      { name: "FasselHD", url: "https://fasselhd.com/", domain: "fasselhd.com", category: "Apps", badge: "new", countries: ["EG"] },
-      { name: "star sports", url: "https://uvotv.com/", domain: "uvotv.com", category: "Apps", badge: "", countries: ["IN"] },
-      { name: "anivortex", url: "https://anivortex.in/", domain: "anivortex.in", category: "Apps", badge: "", countries: ["IN"] },
-      { name: "Mihon", url: "https://mihon.app/", domain: "mihon.app", category: "Apps", badge: "", countries: ["JP"] },
-      { name: "FlowFlix", url: "https://flowflix.vercel.app/", domain: "flowflix.vercel.app", category: "Apps", badge: "new", countries: ["PL"] },
-      { name: "PureVideo", url: "https://majusss.github.io/", domain: "majusss.github.io", category: "Apps", badge: "new", countries: ["PL"] },
-      { name: "Tving", url: "http://www.tving.com/", domain: "tving.com", category: "Apps", badge: "", countries: ["KR"] }
+      // --- Apps (16) ---
+      ["Playtorrio", "https://playtorrio.pages.dev/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["BeeTV", "https://beetvs.com.co/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["HDO Box", "https://hdobox.net/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["MovieBox", "https://www.moviesbox.com.co/home/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["NetMirror", "https://netmirror.gg/2/en", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["PikaShow", "https://pikashowtv.in/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["MobiFlix", "https://mobiflix.net", "Apps", "", ["US"]],
+      ["YouCine", "https://youcineapkpro.com/", "Apps", "new", ["US", "IN"]],
+      ["PlayFy", "https://playfy.live/", "Apps", "", ["US", "BR", "EG", "FI", "FR", "DE", "IN", "IT", "JP", "NL", "PL", "PT", "RU", "KR", "ES"]],
+      ["FasselHD", "https://fasselhd.com/", "Apps", "new", ["EG"]],
+      ["star sports", "https://uvotv.com/", "Apps", "", ["IN"]],
+      ["anivortex", "https://anivortex.in/", "Apps", "", ["IN"]],
+      ["Mihon", "https://mihon.app/", "Apps", "", ["JP"]],
+      ["FlowFlix", "https://flowflix.vercel.app/", "Apps", "new", ["PL"]],
+      ["PureVideo", "https://majusss.github.io/", "Apps", "new", ["PL"]],
+      ["Tving", "http://www.tving.com/", "Apps", "", ["KR"]],
     ];
+
+    // Automatically maps to full site objects (auto-extracts domain from URL)
+    const sitesData = sitesList.map(([name, url, category, badge, countries, domain]) => ({
+      name,
+      url,
+      domain: domain || url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0],
+      category,
+      badge: badge || "",
+      countries
+    }));
 
     let activeCategory = "All";
     let activeCountry = "US";
-    let activeThemeId = "purple";
+    let activeThemeId = "gold";
     let currentModalUrl = "";
-    let was3DRunningBeforeModal = true;
+    let is3DUserEnabled = true;
     let favorites = [];
     try {
       favorites = JSON.parse(localStorage.getItem("stream_favs") || "[]");
@@ -1577,7 +1645,6 @@
       currentModalUrl = targetUrl;
 
       document.getElementById("player-site-title").textContent = name || domain;
-      document.getElementById("player-site-domain").textContent = domain || targetUrl;
       document.getElementById("player-site-icon").src = "https://www.google.com/s2/favicons?domain=" + (domain || targetUrl) + "&sz=128";
 
       playerLoader.style.opacity = "1";
@@ -1585,25 +1652,8 @@
       playerModal.classList.add("active");
       document.body.classList.add("modal-open");
 
-      // Pause 3D animation while watching for smooth video performance
-      was3DRunningBeforeModal = is3DRunning;
-      if (is3DRunning && animFrameId) {
-        cancelAnimationFrame(animFrameId);
-      }
-    }
-
-    function openDirectNewTab(url, event) {
-      if (event) event.stopPropagation();
-      playClickSound();
-      const targetUrl = url.startsWith("http") ? url : "https://" + url;
-      window.open(targetUrl, "_blank", "noopener,noreferrer");
-    }
-
-    function openCurrentInNewTab() {
-      playClickSound();
-      if (currentModalUrl) {
-        window.open(currentModalUrl, "_blank", "noopener,noreferrer");
-      }
+      // Automatically pause 3D whenever on other sites to free GPU & memory
+      update3DState();
     }
 
     function reloadPlayerFrame() {
@@ -1633,10 +1683,8 @@
         playerFrame.src = "about:blank";
       }, 250);
 
-      if (was3DRunningBeforeModal && is3DRunning) {
-        if (animFrameId) cancelAnimationFrame(animFrameId);
-        animate3D();
-      }
+      // Returning to homepage of Multiplex: resume 3D
+      update3DState();
     }
 
     function handleBackdropClick(e) {
@@ -1687,6 +1735,8 @@
       if (event) event.stopPropagation();
       activeCountry = code;
       try {
+        localStorage.setItem("multiplex_region", code);
+        localStorage.setItem("multiplex_region_v2", code);
         localStorage.setItem("nexus_region_v2", code);
       } catch (e) {}
       document.getElementById("country-dropdown").classList.remove("open");
@@ -1729,31 +1779,6 @@
       setTimeout(() => t.classList.remove("show"), 2000);
     }
 
-    function copyLink(url, event) {
-      event.stopPropagation();
-      playClickSound();
-      const targetUrl = url.startsWith("http") ? url : "https://" + url;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(targetUrl).catch(() => fallbackCopy(targetUrl));
-      } else {
-        fallbackCopy(targetUrl);
-      }
-      showToast("Copied " + targetUrl + " 📋");
-    }
-
-    function fallbackCopy(text) {
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-      } catch (e) {}
-    }
-
     function toggleFav(siteKey, event) {
       event.stopPropagation();
       playClickSound();
@@ -1772,18 +1797,19 @@
     }
 
     const paletteMap = {
+      gold:   [0xfbbf24, 0xea580c, 0xfde047],
       purple: [0xc084fc, 0xa855f7, 0xe879f9],
       green:  [0x34d399, 0x10b981, 0xa3e635],
       red:    [0xfb7185, 0xe11d48, 0xfda4af],
-      blue:   [0x38bdf8, 0x2563eb, 0x22d3ee],
-      gold:   [0xfbbf24, 0xea580c, 0xfde047]
+      blue:   [0x38bdf8, 0x2563eb, 0x22d3ee]
     };
 
     function setTheme(themeName) {
-      const validTheme = paletteMap[themeName] ? themeName : 'purple';
+      const validTheme = paletteMap[themeName] ? themeName : 'gold';
       activeThemeId = validTheme;
       document.body.setAttribute('data-theme', validTheme);
       try {
+        localStorage.setItem('multiplex_theme', validTheme);
         localStorage.setItem('nexus_theme', validTheme);
       } catch (e) {}
       const colors = paletteMap[validTheme];
@@ -1791,14 +1817,17 @@
     }
 
     function renderCategoriesBar() {
+      const regionSites = sitesData.filter(s => s.countries.includes(activeCountry));
+      const favCount = sitesData.filter(s => favorites.includes(s.url)).length;
+
       categoriesBar.innerHTML = categoriesList.map(cat => {
         let count = 0;
         if (cat === "All") {
-          count = sitesData.filter(s => s.countries.includes(activeCountry)).length;
+          count = regionSites.length;
         } else if (cat === "Favorites") {
-          count = sitesData.filter(s => favorites.includes(s.url)).length;
+          count = favCount;
         } else {
-          count = sitesData.filter(s => s.category === cat && s.countries.includes(activeCountry)).length;
+          count = regionSites.filter(s => s.category === cat).length;
         }
         return `
           <button class="cat-tab ${cat === activeCategory ? 'active' : ''}" onclick="playClickSound(); switchCategory('${cat}')">
@@ -1812,15 +1841,16 @@
       if (activeCategory === cat) return;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       activeCategory = cat;
-      if (categoryConfig[cat]) {
-        update3DPalette(categoryConfig[cat].color1, categoryConfig[cat].color2);
-      }
+      const themeColors = paletteMap[activeThemeId] || paletteMap['gold'];
+      update3DPalette(themeColors[0], themeColors[1], themeColors[2]);
+      update3DCategoryTargets();
       renderCategoriesBar();
       renderContent();
     }
 
     function renderContent() {
       let sectionsToRender = [];
+      const regionSites = sitesData.filter(s => s.countries.includes(activeCountry));
 
       if (activeCategory === "All") {
         const subCategories = ["Movies & Shows", "Anime", "Manga", "Live TV & Sports", "Apps"];
@@ -1828,7 +1858,7 @@
           name: subCat,
           banner: categoryConfig[subCat].banner,
           icon: categoryConfig[subCat].icon,
-          sites: sitesData.filter(s => s.category === subCat && s.countries.includes(activeCountry))
+          sites: regionSites.filter(s => s.category === subCat)
         })).filter(sec => sec.sites.length > 0);
       } else if (activeCategory === "Favorites") {
         sectionsToRender = [{
@@ -1838,12 +1868,11 @@
           sites: sitesData.filter(s => favorites.includes(s.url))
         }];
       } else {
-        const catSites = sitesData.filter(s => s.category === activeCategory && s.countries.includes(activeCountry));
         sectionsToRender = [{
           name: activeCategory,
           banner: categoryConfig[activeCategory].banner,
           icon: categoryConfig[activeCategory].icon,
-          sites: catSites
+          sites: regionSites.filter(s => s.category === activeCategory)
         }];
       }
 
@@ -1858,16 +1887,15 @@
             <span class="count-pill">${sec.sites.length} available</span>
           </div>
           <div class="grid">
-            ${sec.sites.length > 0 ? sec.sites.map((site) => {
+                        ${sec.sites.length > 0 ? sec.sites.map((site, cardIdx) => {
               const isFav = favorites.includes(site.url);
-              const safeName = site.name.replace(/'/g, "\\'");
+              const safeName = site.name.replace(/'/g, "\'");
+              const animDelay = Math.min(cardIdx * 0.018, 0.28).toFixed(3);
               return `
-                <div class="link-card" onclick="openSite('${site.url}', '${safeName}', '${site.domain}')" data-url="${site.domain}" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
+                <div class="link-card" style="animation-delay: ${animDelay}s;" onclick="openSite('${site.url}', '${safeName}', '${site.domain}')" onmousemove="handleCardTilt(event, this)" onmouseleave="resetCardTilt(this)">
                   <div class="card-top-row">
                     ${site.badge ? `<span class="badge ${site.badge}">${site.badge}</span>` : '<span></span>'}
                     <div class="card-actions">
-                      <button class="action-btn" onclick="openDirectNewTab('${site.url}', event)" title="Open in New Tab">↗</button>
-                      <button class="action-btn" onclick="copyLink('${site.url}', event)" title="Copy URL">📋</button>
                       <button class="action-btn ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${site.url}', event)" title="Favorite">${isFav ? '♥' : '♡'}</button>
                     </div>
                   </div>
@@ -1904,11 +1932,11 @@
       const dx = x - xc;
       const dy = y - yc;
 
-      const maxAngle = 13;
+      const maxAngle = 12;
       const rotateX = (-dy / yc) * maxAngle;
       const rotateY = (dx / xc) * maxAngle;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.02)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.02)`;
     }
 
     function resetCardTilt(card) {
@@ -1945,8 +1973,8 @@
         ctx.lineWidth = 5;
         ctx.strokeRect(10, 10, w - 20, h - 20);
         ctx.fillStyle = '#c084fc';
-        ctx.font = 'bold 24px monospace';
-        ctx.fillText('NEXUS // SCENE 01', 22, 55);
+        ctx.font = 'bold 20px monospace';
+        ctx.fillText('MULTIPLEX // SCENE 01', 12, 55);
         ctx.strokeStyle = 'rgba(255,255,255,0.45)';
         ctx.lineWidth = 3;
         ctx.beginPath();
@@ -2594,11 +2622,11 @@
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
       scene.add(ambientLight);
 
-      pointLight1 = new THREE.PointLight(0xc084fc, 1.9, 85);
+      pointLight1 = new THREE.PointLight(0xfbbf24, 1.9, 85);
       pointLight1.position.set(-18, 14, 15);
       scene.add(pointLight1);
 
-      pointLight2 = new THREE.PointLight(0xa855f7, 1.7, 85);
+      pointLight2 = new THREE.PointLight(0xea580c, 1.7, 85);
       pointLight2.position.set(18, -12, 15);
       scene.add(pointLight2);
 
@@ -2606,16 +2634,16 @@
       scene.add(shapesGroup);
 
       primaryWireMat = new THREE.MeshStandardMaterial({
-        color: 0xc084fc,
-        emissive: 0xc084fc,
+        color: 0xfbbf24,
+        emissive: 0xfbbf24,
         emissiveIntensity: 0.45,
         roughness: 0.25,
         metalness: 0.6
       });
 
       secondaryWireMat = new THREE.MeshStandardMaterial({
-        color: 0xa855f7,
-        emissive: 0xa855f7,
+        color: 0xea580c,
+        emissive: 0xea580c,
         emissiveIntensity: 0.45,
         roughness: 0.25,
         metalness: 0.6
@@ -2646,14 +2674,21 @@
           ...obj.userData,
           baseScale: item.scale,
           targetScale: item.scale,
+          baseX: item.pos[0],
+          baseY: item.pos[1],
+          baseZ: item.pos[2],
+          targetZ: item.pos[2],
+          targetRotY: 0,
+          currentRotYOffset: 0,
           rotSpeedX: (idx % 2 === 0 ? 1 : -1) * 0.0032,
           rotSpeedY: (idx % 3 === 0 ? 1 : -1) * 0.0055,
           floatSpeed: 0.0012 + (idx * 0.00015),
-          floatOffset: idx * 0.9,
-          baseY: item.pos[1]
+          floatOffset: idx * 0.9
         };
         shapesGroup.add(obj);
       });
+
+      update3DCategoryTargets();
 
       const particleCount = 240;
       const posArray = new Float32Array(particleCount * 3);
@@ -2693,6 +2728,27 @@
       animate3D();
     }
 
+    function update3DCategoryTargets() {
+      if (!shapesGroup) return;
+      shapesGroup.children.forEach((mesh) => {
+        const isMatch = (activeCategory === "All" || activeCategory === "Favorites" || mesh.userData.category === activeCategory);
+        if (isMatch) {
+          // In All tab: show everything! In specific category (e.g. Movies & Shows or Anime): show matching models in front
+          mesh.userData.targetScale = (activeCategory === "All" || activeCategory === "Favorites")
+            ? mesh.userData.baseScale
+            : mesh.userData.baseScale * 1.35;
+          mesh.userData.targetZ = mesh.userData.baseZ;
+          mesh.userData.targetRotY = 0;
+          mesh.visible = true;
+        } else {
+          // Rotate 180 degrees to the back of the screen and retreat deep into background so it doesn't appear
+          mesh.userData.targetScale = 0.0001;
+          mesh.userData.targetZ = -120;
+          mesh.userData.targetRotY = Math.PI;
+        }
+      });
+    }
+
     function update3DPalette(hex1, hex2, hex3) {
       if (primaryWireMat && secondaryWireMat) {
         primaryWireMat.color.setHex(hex1);
@@ -2707,17 +2763,7 @@
       if (particleMat && hex3) {
         particleMat.color.setHex(hex3);
       }
-      if (shapesGroup) {
-        shapesGroup.children.forEach((obj) => {
-          if (activeCategory === "All" || activeCategory === "Favorites") {
-            obj.userData.targetScale = obj.userData.baseScale;
-          } else if (obj.userData.category === activeCategory) {
-            obj.userData.targetScale = obj.userData.baseScale * 1.35;
-          } else {
-            obj.userData.targetScale = obj.userData.baseScale * 0.62;
-          }
-        });
-      }
+      update3DCategoryTargets();
     }
 
     function animate3D() {
@@ -2735,10 +2781,30 @@
         shapesGroup.children.forEach((mesh) => {
           mesh.rotation.x += mesh.userData.rotSpeedX;
           mesh.rotation.y += mesh.userData.rotSpeedY;
-          mesh.position.y = mesh.userData.baseY + Math.sin(time * mesh.userData.floatSpeed + mesh.userData.floatOffset) * 1.35;
+
+          // Smoothly rotate object toward back of screen (or back to front)
+          mesh.userData.currentRotYOffset += (mesh.userData.targetRotY - mesh.userData.currentRotYOffset) * 0.08;
+
+          // Smooth depth Z translation towards background / foreground
+          mesh.position.z += (mesh.userData.targetZ - mesh.position.z) * 0.08;
+
+          const isMatch = (activeCategory === "All" || activeCategory === "Favorites" || mesh.userData.category === activeCategory);
+          if (isMatch || mesh.position.z > -75) {
+            mesh.position.y = mesh.userData.baseY + Math.sin(time * mesh.userData.floatSpeed + mesh.userData.floatOffset) * 1.35;
+          }
+
+          // Smooth scale interpolation
           const currentS = mesh.scale.x;
-          const targetS = mesh.userData.targetScale || mesh.userData.baseScale;
-          mesh.scale.setScalar(currentS + (targetS - currentS) * 0.06);
+          const targetS = mesh.userData.targetScale;
+          const newS = currentS + (targetS - currentS) * 0.08;
+          mesh.scale.setScalar(Math.max(0.0001, newS));
+
+          // Hide completely once scaled down and pushed to the back
+          if (!isMatch && newS < 0.02 && mesh.position.z < -80) {
+            mesh.visible = false;
+          } else {
+            mesh.visible = true;
+          }
         });
       }
 
@@ -2750,30 +2816,92 @@
       renderer.render(scene, camera);
     }
 
-    function toggle3DMotion() {
-      is3DRunning = !is3DRunning;
+    // Intelligent 3D memory optimization:
+    // Only runs when the user is on the homepage of Multiplex.
+    // Pauses immediately whenever visiting other sites (player modal active)
+    // or when switching to other browser tabs/windows.
+    function update3DState() {
+      const onOtherSite = playerModal && playerModal.classList.contains("active");
+      const tabHidden = document.hidden;
+      const shouldRun = is3DUserEnabled && !onOtherSite && !tabHidden;
+
+      const canvas = document.getElementById('bg-canvas');
       const btn = document.getElementById('toggle-3d-btn');
-      if (btn) btn.textContent = is3DRunning ? '✦ 3D: ON' : '✦ 3D: PAUSED';
-      if (is3DRunning) {
-        if (animFrameId) cancelAnimationFrame(animFrameId);
-        animate3D();
-      } else if (animFrameId) {
-        cancelAnimationFrame(animFrameId);
+
+      if (shouldRun) {
+        if (!is3DRunning) {
+          is3DRunning = true;
+          if (canvas) canvas.style.visibility = 'visible';
+          if (btn) {
+            btn.classList.remove('paused');
+            btn.innerHTML = '<span style="color:var(--accent-1); font-size:0.92rem;">✦</span> <span>3D: ON</span>';
+          }
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+          animate3D();
+        } else if (btn) {
+          btn.classList.remove('paused');
+          btn.innerHTML = '<span style="color:var(--accent-1); font-size:0.92rem;">✦</span> <span>3D: ON</span>';
+        }
+      } else {
+        if (is3DRunning || animFrameId) {
+          is3DRunning = false;
+          if (canvas && onOtherSite) canvas.style.visibility = 'hidden';
+          if (btn) {
+            btn.classList.add('paused');
+            const label = onOtherSite ? '3D: PAUSED' : (!is3DUserEnabled ? '3D: OFF' : '3D: PAUSED');
+            btn.innerHTML = `<span style="opacity:0.6; font-size:0.85rem;">⏸</span> <span>${label}</span>`;
+          }
+          if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
+          }
+        }
       }
     }
 
-    // Restore saved theme & country if present (defaults to US)
-    try {
-      const savedTheme = localStorage.getItem('nexus_theme');
-      const validTheme = paletteMap[savedTheme] ? savedTheme : 'purple';
-      activeThemeId = validTheme;
-      document.body.setAttribute('data-theme', validTheme);
+    function toggle3DMotion() {
+      is3DUserEnabled = !is3DUserEnabled;
+      update3DState();
+    }
 
-      const savedCountry = localStorage.getItem('nexus_region_v2');
+    // Listen for tab switching / navigating away to other sites
+    document.addEventListener('visibilitychange', () => {
+      update3DState();
+    });
+
+    window.addEventListener('blur', () => {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+        is3DRunning = false;
+        const btn = document.getElementById('toggle-3d-btn');
+        if (btn && is3DUserEnabled) {
+          btn.classList.add('paused');
+          btn.innerHTML = '<span style="opacity:0.6; font-size:0.85rem;">⏸</span> <span>3D: PAUSED</span>';
+        }
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      update3DState();
+    });
+
+    // Restore saved theme & country (defaults to Gold & US)
+    try {
+      const savedTheme = localStorage.getItem('multiplex_theme') || localStorage.getItem('nexus_theme');
+      const validTheme = (savedTheme && paletteMap[savedTheme]) ? savedTheme : 'gold';
+      setTheme(validTheme, false);
+
+      const savedCountry = localStorage.getItem('multiplex_region') || localStorage.getItem('multiplex_region_v2') || localStorage.getItem('nexus_region_v2');
       if (savedCountry && regionsList.some(r => r.code === savedCountry)) {
         activeCountry = savedCountry;
+      } else {
+        activeCountry = 'US';
       }
-    } catch (e) {}
+    } catch (e) {
+      setTheme('gold', false);
+      activeCountry = 'US';
+    }
 
     // Initial render
     renderThemeDropdown();
